@@ -114,7 +114,7 @@ const Group = () => {
 
                 <div className="mt-10 flex flex-col gap-6">
                     {group.map((group) => (
-                        <div key={group.id} className="flex items-center justify-between bg-white p-4 rounded-lg shadow-md">
+                        <div key={group.id} className="flex items-center justify-between bg-white p-4 rounded-2xl shadow-md">
                             <div>
                                 <h2 className="text-[#54538A] font-semibold text-lg">{group.groupName}</h2>
                                 <p className="text-gray-500 text-sm">
