@@ -13,28 +13,47 @@
       "password": "biigdara"
     },
     {
-      "id": "175c",
-      "username": "hiii",
-      "email": "ajsdkjs@gmail.com",
-      "password": "weeiir"
-    },
-    {
-      "id": "4ad4",
-      "username": "yooo",
-      "email": "babsopeyemi2020@gmail.com",
-      "password": "ajdbsudes"
-    },
-    {
-      "id": "4435",
-      "username": "paul",
-      "email": "bowasco@gmail.com",
-      "password": "paul"
-    },
+      "id": "a5d6",
+      "username": "helo",
+      "email": "hsdjs@gmail.com",
+      "password": "jfjdjsjs"
+    }
+  ],
+  "loggedInUser": [
     {
       "id": "2396",
       "username": "Debo",
       "email": "bowale@gmail.com",
       "password": "bowale"
+    }
+  ],
+  "availableGroups": [
+    {
+      "id": "12d3",
+      "groupName": "Paul's Group",
+      "groupAmount": "1000",
+      "groupMembers": "2",
+      "groupPlan": "Daily",
+      "groupDuration": "7 days",
+      "groupInterest": "100.00"
+    },
+    {
+      "id": "2d04",
+      "groupName": "Bola's Group",
+      "groupDuration": "14 days",
+      "groupAmount": "500",
+      "groupPlan": "Weekly",
+      "groupInterest": "50.00",
+      "groupMembers": "10"
+    },
+    {
+      "id": "4c19",
+      "groupName": "Tolu's group",
+      "groupDuration": "30 days",
+      "groupAmount": "1000",
+      "groupPlan": "Monthly",
+      "groupInterest": "100.00",
+      "groupMembers": "5"
     }
   ]
 }

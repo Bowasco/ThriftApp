@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -7,20 +7,34 @@ import { useState } from 'react'
 const Login = () => {
 
   const navigate = useNavigate()
+  const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false)
 
   const [formData, setformData] = useState({
     email: '',
     password: '',
   })
 
-  const handleChange = (e)=>{
-    setformData({ ...formData, [e.target.name] : e.target.value })
+  const handleChange = (e) => {
+    setformData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleLogin = async (e) =>{
-    
-    e.preventDefault();
+  const alreadyLoggedInF = async () => {
+    await axios.get('http://localhost:5000/loggedInUser')
+      .then((res) => {
+        if (res.data.length > 0) {
+          setAlreadyLoggedIn(true)
+          navigate("/dashboard");
+        }
+      })
+  }
 
+  useEffect(() => {
+    alreadyLoggedInF();
+  }, [])
+
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       const res = await axios.get('http://localhost:5000/users');
       const user = res.data.find(
@@ -28,15 +42,19 @@ const Login = () => {
       );
 
       if (user) {
-        const loggedInUser = axios.post('http://localhost:5000/loggedInUsers', user)
-        .then('')
-        alert("Login successful")
-        navigate('/dashboard')
-        setformData({
-          email: '',
-          password: ''
-        })
-      }else{
+        console.log(user);
+        axios.post('http://localhost:5000/loggedInUser', user)
+          .then((res) => {
+            console.log(res);
+            localStorage.setItem('loggedInUser', JSON.stringify(res.data));
+            alert("Login successful")
+            navigate('/dashboard')
+            setformData({
+              email: '',
+              password: ''
+            })
+          })
+      } else {
         alert("Invalid Credentials")
       }
     } catch (error) {
@@ -58,25 +76,25 @@ const Login = () => {
               <div className='flex flex-col gap-[24px]'>
                 <div>
                   <p className='text-[#00000080] text-[24px] font-[400]'>Email</p>
-                  <input 
+                  <input
                     name='email'
-                    className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none' 
-                    type="text" 
+                    className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
+                    type="text"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    />
+                  />
                 </div>
                 <div>
                   <p className='text-[#00000080] text-[24px] font-[400]'>Password</p>
-                  <input 
+                  <input
                     name='password'
-                    className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none' 
-                    type="password" 
+                    className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
+                    type="password"
                     value={formData.password}
                     onChange={handleChange}
                     required
-                    />
+                  />
                 </div>
               </div>
             </div>

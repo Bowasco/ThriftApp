@@ -12,70 +12,174 @@ import speaker from '../Icons/heroicons-solid_speakerphone.png'
 import book from '../Icons/Vector (5).png'
 import notification from '../Icons/Vector (6).png'
 import profile from '../Icons/Ellipse 1.png'
+import chart from '../Images/Frame 27.png'
+import { FaAngleRight } from "react-icons/fa6";
+import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
     return (
-        <div className='bg-[#EFF2F9] h-screen flex'>
-            <div className="w-3/12 h-screen bg-[#FFFFFF80] flex flex-col justify-between rounded-tr-[100px] rounded-br-[100px] py-10 px-[52px] text-white">
+        <div className='bg-[#EFF2F9] flex'>
+
+
+            {/* SIDENAV */}
+            <div className="hidden md:flex md:w-3/12 overflow-y-auto bg-[#FFFFFF80] flex-col justify-between rounded-tr-[100px] rounded-br-[100px] py-10 px-[52px] text-white">
                 <div>
                     <div className="mb-10">
                         <img src={Logo} alt="Logo" className="w-[90px] h-[28px]" />
                     </div>
 
                     <div className="flex flex-col gap-8 mt-24">
-                        <button className="flex items-center gap-3 hover:text-gray-300 ">
-                            <span><img src={dash} alt="" className='w-[24px] h-[24px]'/></span>
+                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                            <span><img src={dash} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#939393] font-[400]'>Dashboard</span>
-                        </button>
-                        <button className="flex items-center gap-3 hover:text-gray-300 ">
-                            <span><img src={group} alt="" className='w-[24px]'/></span>
+                        </Link>
+                        <Link className="flex items-center gap-3 hover:text-gray-300" to='/group'>
+                            <span><img src={group} alt="" className='w-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Group</span>
-                        </button>
-                        <button className="flex items-center gap-3 hover:text-gray-300 ">
-                            <span><img src={wallet} alt="" className='w-[24px] h-[24px]'/></span>
+                        </Link>
+                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                            <span><img src={wallet} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Fund Wallet</span>
-                        </button>
-                        <button className="flex items-center gap-3 hover:text-gray-300 ">
-                            <span><img src={message} alt="" className='w-[24px] h-[24px]'/></span>
+                        </Link>
+                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                            <span><img src={message} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Messages</span>
-                        </button>
-                        <button className="flex items-center gap-3 hover:text-gray-300 ">
-                            <span><img src={payment} alt="" className='w-[24px] h-[24px]'/></span>
+                        </Link>
+                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                            <span><img src={payment} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Track Payment</span>
-                        </button>
-                        <button className="flex items-center gap-3 hover:text-gray-300 ">
-                            <span><img src={settings} alt="" className='w-[24px] h-[24px]'/></span>
+                        </Link>
+                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                            <span><img src={settings} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Settings</span>
-                        </button>
-                        <button className="flex items-center gap-3 hover:text-gray-300 ">
-                            <span><img src={logout} alt="" className='w-[24px] h-[24px]'/></span>
+                        </Link>
+                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                            <span><img src={logout} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Log Out</span>
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>
 
+
+
+            {/* MAIN CONTENT */}
             <div className=' w-4/6 mx-auto'>
-                <div className='mt-[32px] flex justify-between'>
-                    <div className='flex items-center gap-[7px] w-[625px] bg-[#FFFFFF] rounded-[30px] p-[10px]'>
-                        <img src={search} alt="" className='w-[20px] h-[20px]'/>
-                        <input type="text" placeholder='Search...' className='focus:outline-none w-full placeholder:text-[#D1D1D1] placeholder:text-[16px]' />
+                <div className='mt-8 flex flex-col md:flex-row md:justify-between gap-4'>
+                    {/* Search Input */}
+                    <div className='flex items-center gap-[7px] w-full md:w-[625px] bg-white rounded-[30px] p-[10px]'>
+                        <img src={search} alt="" className='w-[20px] h-[20px]' />
+                        <input
+                            type="text"
+                            placeholder='Search...'
+                            className='focus:outline-none w-full placeholder:text-[#D1D1D1] placeholder:text-[16px]'
+                        />
                     </div>
-                    <div className='flex justify-between gap-[21px]'>
-                        <div className='flex items-center gap-[24px]'>
-                            <img src={speaker} alt=""  className='w-[24px] h-[24px]'/>
-                            <img src={book} alt=""  className='w-[24px] h-[24px]'/>
-                            <img src={notification} alt=""  className='w-[24px] h-[24px]'/>
+
+                    {/* Icons and Profile */}
+                    <div className='flex justify-between md:justify-end items-center gap-[21px] flex-nowrap'>
+                        <div className='flex items-center gap-[12px] md:gap-[24px]'>
+                            <img src={speaker} alt="" className='w-[24px] h-[24px]' />
+                            <img src={book} alt="" className='w-[24px] h-[24px]' />
+                            <img src={notification} alt="" className='w-[24px] h-[24px]' />
                         </div>
                         <div>
-                            <img src={profile} alt=""/>
+                            <img src={profile} alt="" className='w-[36px] h-[36px] object-cover rounded-full' />
                         </div>
                     </div>
                 </div>
-                <div>
-                    
+
+
+
+                {/* GRAPHICAL REPRESENTATION AND HISTORY */}
+                <div className='mt-10 '>
+                    <div className='bg-white w-full flex gap-10 px-[42px] py-[10px] rounded-t-[30px]'>
+                        <div className='flex gap-[24px]'>
+                            <p className='text-[18px] font-[600] text-[#494882]'>1Y</p>
+                            <p className='text-[18px] font-[600] text-[#494882]'>4M</p>
+                            <p className='text-[18px] font-[600] text-[#494882]'>3M</p>
+                            <p className='text-[18px] font-[600] text-[#494882]'>1M</p>
+                        </div>
+                        <div>
+                            <p className='text-[18px] font-[600] text-[#494882]'>ALL</p>
+                        </div>
+                    </div>
+
+                    <div className='grid grid-cols-[2fr_1.5fr_3fr] mt-5 '>
+                        <div className="bg-[#6672EA] py-3 px-[42px]">
+                            <p className='text-[17px] text-[#FFFFFF] font-[600]'>ACCOUNT BALANCE</p>
+                            <p className='text-[28px] text-[#FFFFFF] font-[400]'>₦6,200,023.79</p>
+                        </div>
+                        <div className="bg-[#7395F9] py-3 px-[42px]">
+                            <p className='text-[17px] text-[#FFFFFF] font-[600]'>NEW MEMBERS</p>
+                            <p className='text-[28px] text-[#FFFFFF] font-[600]'>2</p>
+                        </div>
+                        <div className="bg-[#7395F9] py-3 px-[42px]">
+                            <p className='text-[17px] text-[#FFFFFF] font-[600]'>SUCCESSFUL PAYMENTS</p>
+                            <p className='text-[28px] text-[#FFFFFF] font-[600]'>121</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <img src={chart} alt="" />
+                    </div>
+                    <div className='bg-[#FEFEFEE5] w-full flex gap-10 justify-between px-[42px] pb-10 rounded-b-[30px]'>
+                        <p className='text-[13px] font-[600] text-[#818181]'>03/18</p>
+                        <p className='text-[13px] font-[600] text-[#818181]'>03/19</p>
+                        <p className='text-[13px] font-[600] text-[#818181]'>03/20</p>
+                        <p className='text-[13px] font-[600] text-[#818181]'>03/21</p>
+                        <p className='text-[13px] font-[600] text-[#818181]'>03/22</p>
+                        <p className='text-[13px] font-[600] text-[#818181]'>03/23</p>
+                        <p className='text-[13px] font-[600] text-[#818181]'>Today</p>
+                    </div>
                 </div>
-                <div></div>
+
+                <div className='mt-10 '>
+                    <div className='bg-[#FFFFFF] grid grid-cols-[1fr_1fr_1fr] rounded-t-[30px] pt-2'>
+                        <div className='px-7 py-2 text-[16px] font-[700] text-[#6672EA]'>
+                            <p>PENDING</p>
+                        </div>
+                        <div className='px-7 py-2 text-[16px] font-[700] text-[#6672EA]'>
+                            <p>DISPUTES</p>
+                        </div>
+                        <div className='px-7 py-2 text-[16px] font-[700] text-[#6672EA]'>
+                            <p>RADAR</p>
+                        </div>
+                    </div>
+
+                    <div className='bg-[#F5F6FA] grid grid-cols-[1fr_1fr_1fr] rounded-b-[30px]'>
+                        <div className=' border-r px-7 flex flex-col gap-[62px] py-[16px]'>
+                            <div className='text-[#555555]'>
+                                <p className='text-[24px] font-[500]'>₦5,000</p>
+                                <p className='text-[17px] font-[500]'>Next transfer</p>
+                            </div>
+                            <div className='flex items-center gap-[8px] text-[#565656]'>
+                                <p className='text-[17px] font-[500]'>Next transfers</p>
+                                <FaAngleRight />
+                            </div>
+                        </div>
+                        <div className=' border-r px-7 flex flex-col gap-[62px] py-[16px]'>
+                            <div className='text-[#555555]'>
+                                <p className='text-[24px] font-[500]'>0 unanswered</p>
+                                <p className='text-[17px] font-[500]'>In the past 2 weeks</p>
+                            </div>
+                            <div className='flex items-center gap-[8px] text-[#565656]'>
+                                <p className='text-[17px] font-[500]'>View disputes</p>
+                                <FaAngleRight />
+                            </div>
+                        </div>
+                        <div className='px-7 flex flex-col gap-[62px] py-[16px]'>
+                            <div className='text-[#555555] text-[24px]'>
+                                <p className='text-[24px] font-[500]'>0 payment to review</p>
+                                <p className='text-[17px] font-[500]'>In the past 2 weeks</p>
+                            </div>
+                            <div className='flex items-center gap-[8px] text-[#565656]'>
+                                <p className='text-[17px] font-[500]'>View reviews</p>
+                                <FaAngleRight />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
