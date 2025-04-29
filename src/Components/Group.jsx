@@ -116,8 +116,8 @@ const Group = () => {
                     {group.map((group) => (
                         <div key={group.id} className="flex items-center justify-between bg-white p-4 rounded-2xl shadow-md">
                             <div>
-                                <h2 className="text-[#54538A] font-semibold text-lg">{group.groupName}</h2>
-                                <p className="text-gray-500 text-sm">
+                                <h2 className="text-[#6672EA] text-[32px] font-[600] text-lg">{group.groupName}</h2>
+                                <p className="text-gray-500 text-[20px] font-[400]">
                                     ₦{group.groupAmount} {group.groupPlan} pack ₦{calculateGroupTarget(group)} • {group.groupMembers} members
                                 </p>
                             </div>

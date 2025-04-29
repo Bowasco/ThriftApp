@@ -18,8 +18,7 @@ import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
     return (
-        <div className='bg-[#EFF2F9] flex'>
-
+        <div className='bg-[#EFF2F9] flex flex-col md:flex-row min-h-screen'>
 
             {/* SIDENAV */}
             <div className="hidden md:flex md:w-3/12 overflow-y-auto bg-[#FFFFFF80] flex-col justify-between rounded-tr-[100px] rounded-br-[100px] py-10 px-[52px] text-white">
@@ -61,10 +60,8 @@ const Dashboard = () => {
                 </div>
             </div>
 
-
-
             {/* MAIN CONTENT */}
-            <div className=' w-4/6 mx-auto'>
+            <div className='w-full md:w-9/12 mx-auto px-4 flex-grow'>
                 <div className='mt-8 flex flex-col md:flex-row md:justify-between gap-4'>
                     {/* Search Input */}
                     <div className='flex items-center gap-[7px] w-full md:w-[625px] bg-white rounded-[30px] p-[10px]'>
@@ -77,7 +74,7 @@ const Dashboard = () => {
                     </div>
 
                     {/* Icons and Profile */}
-                    <div className='flex justify-between md:justify-end items-center gap-[21px] flex-nowrap'>
+                    <div className='flex justify-between md:justify-end items-center gap-[21px] flex-wrap'>
                         <div className='flex items-center gap-[12px] md:gap-[24px]'>
                             <img src={speaker} alt="" className='w-[24px] h-[24px]' />
                             <img src={book} alt="" className='w-[24px] h-[24px]' />
@@ -89,11 +86,9 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-
-
                 {/* GRAPHICAL REPRESENTATION AND HISTORY */}
-                <div className='mt-10 '>
-                    <div className='bg-white w-full flex gap-10 px-[42px] py-[10px] rounded-t-[30px]'>
+                <div className='mt-10'>
+                    <div className='bg-white w-full flex flex-wrap gap-10 px-[20px] md:px-[42px] py-[10px] rounded-t-[30px]'>
                         <div className='flex gap-[24px]'>
                             <p className='text-[18px] font-[600] text-[#494882]'>1Y</p>
                             <p className='text-[18px] font-[600] text-[#494882]'>4M</p>
@@ -105,7 +100,7 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div className='grid grid-cols-[2fr_1.5fr_3fr] mt-5 '>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-5'>
                         <div className="bg-[#6672EA] py-3 px-[42px]">
                             <p className='text-[17px] text-[#FFFFFF] font-[600]'>ACCOUNT BALANCE</p>
                             <p className='text-[28px] text-[#FFFFFF] font-[400]'>₦6,200,023.79</p>
@@ -121,9 +116,10 @@ const Dashboard = () => {
                     </div>
 
                     <div>
-                        <img src={chart} alt="" />
+                        <img src={chart} alt="" className='w-full object-contain' />
                     </div>
-                    <div className='bg-[#FEFEFEE5] w-full flex gap-10 justify-between px-[42px] pb-10 rounded-b-[30px]'>
+
+                    <div className='bg-[#FEFEFEE5] w-full flex flex-wrap gap-4 justify-between px-[20px] md:px-[42px] pb-10 rounded-b-[30px]'>
                         <p className='text-[13px] font-[600] text-[#818181]'>03/18</p>
                         <p className='text-[13px] font-[600] text-[#818181]'>03/19</p>
                         <p className='text-[13px] font-[600] text-[#818181]'>03/20</p>
@@ -134,8 +130,8 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                <div className='mt-10 '>
-                    <div className='bg-[#FFFFFF] grid grid-cols-[1fr_1fr_1fr] rounded-t-[30px] pt-2'>
+                <div className='mt-10'>
+                    <div className='bg-[#FFFFFF] grid grid-cols-1 sm:grid-cols-3 rounded-t-[30px] pt-2'>
                         <div className='px-7 py-2 text-[16px] font-[700] text-[#6672EA]'>
                             <p>PENDING</p>
                         </div>
@@ -147,7 +143,7 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div className='bg-[#F5F6FA] grid grid-cols-[1fr_1fr_1fr] rounded-b-[30px]'>
+                    <div className='bg-[#F5F6FA] grid grid-cols-1 sm:grid-cols-3 rounded-b-[30px]'>
                         <div className=' border-r px-7 flex flex-col gap-[62px] py-[16px]'>
                             <div className='text-[#555555]'>
                                 <p className='text-[24px] font-[500]'>₦5,000</p>

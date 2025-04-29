@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa6";
 
 const Login = () => {
 
+
+  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
   const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false)
 
@@ -87,14 +91,22 @@ const Login = () => {
                 </div>
                 <div>
                   <p className='text-[#00000080] text-[24px] font-[400]'>Password</p>
-                  <input
-                    name='password'
-                    className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
-                    type="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="relative mt-[22px]">
+                    <input
+                      name='password'
+                      className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
+                      type={showPassword ? "text" : "password"}
+                      value={formData.password}
+                      onChange={handleChange}
+                      required
+                    />
+                    <span
+                      onClick={() => setShowPassword(prev => !prev)}
+                      className="absolute right-[20px] top-1/2 transform -translate-y-1/2 text-gray-600 cursor-pointer"
+                    >
+                      {showPassword ? <FaEye /> : <FaEyeSlash />}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
