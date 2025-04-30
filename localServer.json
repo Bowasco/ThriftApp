@@ -25,6 +25,12 @@
       "username": "Debo",
       "email": "bowale@gmail.com",
       "password": "bowale"
+    },
+    {
+      "id": "23c1",
+      "username": "Daniel",
+      "email": "daniel@gmail.com",
+      "password": "daniel"
     }
   ],
   "availableGroups": [
@@ -54,6 +60,5 @@
       "groupPlan": "Monthly",
       "groupInterest": "100.00",
       "groupMembers": "5"
-    }
-  ]
+    }]
 }

@@ -22,7 +22,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/users', formData);
+            await axios.post('http://localhost:5001/users', formData);
             alert('Account Created Successfully');
             setFormData({
                 username: '',
