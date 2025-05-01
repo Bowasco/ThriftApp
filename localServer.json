@@ -17,20 +17,20 @@
       "username": "helo",
       "email": "hsdjs@gmail.com",
       "password": "jfjdjsjs"
+    },
+    {
+      "id": "909d",
+      "username": "DaniCode",
+      "email": "daniel@gmail.com",
+      "password": "daniel@gmail.com"
     }
   ],
   "loggedInUser": [
     {
-      "id": "2396",
-      "username": "Debo",
-      "email": "bowale@gmail.com",
-      "password": "bowale"
-    },
-    {
-      "id": "23c1",
-      "username": "Daniel",
+      "id": "909d",
+      "username": "DaniCode",
       "email": "daniel@gmail.com",
-      "password": "daniel"
+      "password": "daniel@gmail.com"
     }
   ],
   "availableGroups": [
@@ -41,7 +41,16 @@
       "groupMembers": "2",
       "groupPlan": "Daily",
       "groupDuration": "7 days",
-      "groupInterest": "100.00"
+      "groupInterest": "100.00",
+      "groupLink": "http://localhost:3000/join_thrift/12d3",
+      "members": [
+        {
+          "id": "909d",
+          "username": "DaniCode",
+          "email": "daniel@gmail.com",
+          "password": "daniel@gmail.com"
+        }
+      ]
     },
     {
       "id": "2d04",
@@ -60,5 +69,6 @@
       "groupPlan": "Monthly",
       "groupInterest": "100.00",
       "groupMembers": "5"
-    }]
+    }
+  ]
 }

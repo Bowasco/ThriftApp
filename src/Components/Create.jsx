@@ -11,6 +11,7 @@ const Create = () => {
     const [amount, setAmount] = useState("")
 
     const calcInterest = amount ? (parseFloat(amount) * 0.1).toFixed(2) : "";
+    // const [grouNane, setGrouNane] = useState("")
 
     const [group, setGroup] = useState({
         groupName: "",
@@ -19,6 +20,7 @@ const Create = () => {
         groupPlan: "",
         groupInterest: "",
         groupMembers: "",
+        groupLink: "",
     })
 
     const handleChange = (e) => {
@@ -27,6 +29,7 @@ const Create = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const randNum = Math.random() * 100000
 
         const newGroup = {
             ...group,
@@ -34,7 +37,8 @@ const Create = () => {
             groupAmount: amount,
             groupPlan: plan,
             groupInterest: calcInterest,
-            groupMembers: member
+            groupMembers: member,
+            groupLink: `http://localhost:3000/join_thrift/${randNum}`
         };
 
         try {

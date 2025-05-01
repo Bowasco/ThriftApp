@@ -22,7 +22,7 @@ const Group = () => {
     const [group, setGroup] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/availableGroups')
+        axios.get('http://localhost:5001/availableGroups')
             .then((res) =>
                 setGroup(res.data))
             .catch((error) => {

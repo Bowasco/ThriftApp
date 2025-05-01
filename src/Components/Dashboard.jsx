@@ -28,6 +28,7 @@ const Dashboard = () => {
         console.log(user);
         if (!user) {
             navigate('/login')
+            return;
         }
         axios.get("http://localhost:5001/loggedInUser").then((res) => {
             console.log(res, "This is the response");
@@ -41,6 +42,8 @@ const Dashboard = () => {
             } else {
                 navigate("/login")
             }
+        }).catch((err)=>{
+            console.log(err);
         })
         console.log(user, "This is the user");
     }, [])

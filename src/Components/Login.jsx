@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
-import { useState, useEffect } from 'react'
 
 const Login = () => {
 
@@ -23,27 +22,18 @@ const Login = () => {
   }
   const alreadyLoggedInF = async () => {
     await axios.get('http://localhost:5001/loggedInUser').then((res) => {
+      console.log(res);
       if (res.data.length > 0) {
         setAlreadyLoggedIn(true)
         navigate("/dashboard");
       }
+    }).catch((err)=>{
+      console.log(err);
     })
   }
   useEffect(() => {
     alreadyLoggedInF()
   }, [])
-
-  const handleLogin = async (e) => {
-
-    const alreadyLoggedInF = async () => {
-      await axios.get('http://localhost:5000/loggedInUser')
-        .then((res) => {
-          if (res.data.length > 0) {
-            setAlreadyLoggedIn(true)
-            navigate("/dashboard");
-          }
-        })
-    }
 
     useEffect(() => {
       alreadyLoggedInF();
@@ -134,4 +124,5 @@ const Login = () => {
     )
   }
 
-  export default Login
+
+export default Login
