@@ -7,6 +7,7 @@ import Signup from './Components/Signup';
 import Dashboard from './Components/Dashboard';
 import Group from './Components/Group';
 import Create from './Components/Create';
+import JoinGroup from './Components/JoinGroup';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path='/dashboard' element={<Dashboard />}/>
       <Route path='/group' element={<Group />}/>
       <Route path='/create' element={<Create />}/>
+      <Route path='/join_thrift/:thrift_id' element={<JoinGroup />}/>
     </Routes>
   );
 }

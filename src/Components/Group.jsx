@@ -16,23 +16,36 @@ import { Link } from 'react-router-dom'
 import { FaPlus } from "react-icons/fa6";
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Group = () => {
-
+    const navigate = useNavigate()
     const [group, setGroup] = useState([])
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('loggedInUser')))
+    const [filteredGroups, setFilteredGroups] = useState([])
+    const [searchQuery, setSearchQuery] = useState('')
+    
+
 
     useEffect(() => {
         axios.get('http://localhost:5000/availableGroups')
-            .then((res) =>
-                setGroup(res.data))
+            .then((res) => {
+                setGroup(res.data);
+                setFilteredGroups(res.data);
+            })
             .catch((error) => {
                 console.error("Error fetching the groups", error);
             })
     }, [])
 
+    useEffect(() => {
+        const filtered = group.filter(group =>
+            group.groupName.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredGroups(filtered)
+    }, [searchQuery, group])
+
     const calculateGroupTarget = (group) => {
-        console.log(group);
-        
         const amount = parseInt(group.groupAmount);
         const duration = parseInt(group.groupDuration);
 
@@ -40,6 +53,19 @@ const Group = () => {
         return target;
     }
 
+
+    const handleLogOut = async () => {
+        try {
+            localStorage.removeItem("loggedInUser");
+            if (user) {
+                await axios.delete(`http://localhost:5000/loggedInUser/${user.id}`)
+                alert("Logout successful")
+                navigate('/login')
+            }
+        } catch (error) {
+            console.log('Unable to logout', error);
+        }
+    }
 
 
     return (
@@ -76,7 +102,7 @@ const Group = () => {
                             <span><img src={settings} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Settings</span>
                         </Link>
-                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                        <Link className="flex items-center gap-3 hover:text-gray-300" onClick={handleLogOut}>
                             <span><img src={logout} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Log Out</span>
                         </Link>
@@ -95,6 +121,10 @@ const Group = () => {
                         <input
                             type="text"
                             placeholder='Search...'
+                            value={searchQuery}
+                            onChange={(e) => {
+                                setSearchQuery(e.target.value)
+                            }}
                             className='focus:outline-none w-full placeholder:text-[#D1D1D1] placeholder:text-[16px]'
                         />
                     </div>
@@ -113,12 +143,12 @@ const Group = () => {
 
 
                 <div className="mt-10 flex flex-col gap-6">
-                    {group.map((group) => (
+                    {filteredGroups.map((group) => (
                         <div key={group.id} className="flex items-center justify-between bg-white p-4 rounded-2xl shadow-md">
                             <div>
                                 <h2 className="text-[#6672EA] text-[32px] font-[600] text-lg">{group.groupName}</h2>
                                 <p className="text-gray-500 text-[20px] font-[400]">
-                                    ₦{group.groupAmount} {group.groupPlan} pack ₦{calculateGroupTarget(group)} • {group.groupMembers} members
+                                    ₦{group.groupAmount} {group.groupPlan} pack ₦{calculateGroupTarget(group)} • {group.members?. length || 0}/{group.groupMembers} members
                                 </p>
                             </div>
                         </div>

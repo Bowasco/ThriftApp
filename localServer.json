@@ -21,39 +21,68 @@
   ],
   "loggedInUser": [
     {
-      "id": "2396",
-      "username": "Debo",
-      "email": "bowale@gmail.com",
-      "password": "bowale"
+      "id": "62dd",
+      "username": "Darasimi",
+      "email": "darasimi@gmail.com",
+      "password": "biigdara"
     }
   ],
   "availableGroups": [
     {
-      "id": "12d3",
+      "id": "c2f4",
       "groupName": "Paul's Group",
-      "groupAmount": "1000",
-      "groupMembers": "2",
-      "groupPlan": "Daily",
       "groupDuration": "7 days",
-      "groupInterest": "100.00"
-    },
-    {
-      "id": "2d04",
-      "groupName": "Bola's Group",
-      "groupDuration": "14 days",
-      "groupAmount": "500",
-      "groupPlan": "Weekly",
-      "groupInterest": "50.00",
-      "groupMembers": "10"
-    },
-    {
-      "id": "4c19",
-      "groupName": "Tolu's group",
-      "groupDuration": "30 days",
       "groupAmount": "1000",
-      "groupPlan": "Monthly",
+      "groupPlan": "Daily",
       "groupInterest": "100.00",
-      "groupMembers": "5"
+      "groupMembers": "3",
+      "groupLink": "http://localhost:3000/join_thrift/c2f4"
+    },
+    {
+      "id": "823d",
+      "groupName": "SQI",
+      "groupDuration": "7 days",
+      "groupAmount": "2000",
+      "groupPlan": "Daily",
+      "groupInterest": "200.00",
+      "groupMembers": "2",
+      "groupLink": "http://localhost:3000/join_thrift/823d",
+      "members": [
+        {
+          "id": "2396",
+          "username": "Debo",
+          "email": "bowale@gmail.com",
+          "password": "bowale"
+        },
+        {
+          "id": "62dd",
+          "username": "Darasimi",
+          "email": "darasimi@gmail.com",
+          "password": "biigdara"
+        }
+      ]
+    },
+    {
+      "id": "4765",
+      "groupName": "Dorcas",
+      "groupDuration": "7 days",
+      "groupAmount": "4000",
+      "groupPlan": "Daily",
+      "groupInterest": "400.00",
+      "groupMembers": "2",
+      "groupLink": "http://localhost:3000/join_thrift/4765",
+      "members": []
+    },
+    {
+      "id": "4afe",
+      "groupName": "Fola",
+      "groupDuration": "7 days",
+      "groupAmount": "5000",
+      "groupPlan": "Daily",
+      "groupInterest": "500.00",
+      "groupMembers": "9",
+      "members": [],
+      "groupLink": "http://localhost:3000/join_thrift/4afe"
     }
   ]
 }

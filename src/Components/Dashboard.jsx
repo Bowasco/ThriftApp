@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from '../Icons/LOGO.png'
 import logout from '../Icons/ion_log-out.png'
 import message from '../Icons/jam_envelope-f.png'
@@ -15,8 +15,53 @@ import profile from '../Icons/Ellipse 1.png'
 import chart from '../Images/Frame 27.png'
 import { FaAngleRight } from "react-icons/fa6";
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const Dashboard = () => {
+
+    const navigate = useNavigate()
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("loggedInUser")))
+
+    useEffect(() => {
+        console.log(user);
+        if (!user) {
+            navigate("/login")
+            return;
+        }
+        axios.get('http://localhost:5000/loggedInUser').then((res) => {
+            console.log(res)
+            if (res.data.length > 0) {
+                if (res.data[0].id === user.id) {
+                    setIsAuthenticated(true)
+                } else {
+                    setIsAuthenticated(false)
+                    navigate("/login")
+                }
+            } else {
+                navigate("/login")
+            }
+        }).catch((err) => {
+            console.log(err, "There is error fetching data");
+        })
+    }, [])
+
+    const handleLogOut = async () => {
+        try {
+            localStorage.removeItem("loggedInUser");
+            if (user) {
+                await axios.delete(`http://localhost:5000/loggedInUser/${user.id}`)
+                alert("Logout Successful")
+                navigate('/login')
+            }
+        } catch (error) {
+            console.log('Unable to logout', error);
+        }
+    }
+
+
+
     return (
         <div className='bg-[#EFF2F9] flex flex-col md:flex-row min-h-screen'>
 
@@ -52,7 +97,7 @@ const Dashboard = () => {
                             <span><img src={settings} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Settings</span>
                         </Link>
-                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                        <Link className="flex items-center gap-3 hover:text-gray-300" onClick={handleLogOut}>
                             <span><img src={logout} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Log Out</span>
                         </Link>
