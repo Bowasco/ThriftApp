@@ -17,6 +17,7 @@ import { FaPlus } from "react-icons/fa6";
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
 
 const Group = () => {
     const navigate = useNavigate()
@@ -24,7 +25,7 @@ const Group = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('loggedInUser')))
     const [filteredGroups, setFilteredGroups] = useState([])
     const [searchQuery, setSearchQuery] = useState('')
-    
+
 
 
     useEffect(() => {
@@ -59,17 +60,20 @@ const Group = () => {
             localStorage.removeItem("loggedInUser");
             if (user) {
                 await axios.delete(`http://localhost:5000/loggedInUser/${user.id}`)
-                alert("Logout successful")
-                navigate('/login')
+                toast.success("Logout Successful")
+                setTimeout(() => {
+                    navigate('/login')
+                }, 4000);
             }
         } catch (error) {
             console.log('Unable to logout', error);
+            toast.error("Error logging out")
         }
     }
 
 
     return (
-        <div className='bg-[#EFF2F9] flex h-screen'>
+        <div className='bg-[#EFF2F9] flex'>
             {/* SIDENAV */}
             <div className="hidden md:flex md:w-3/12 overflow-y-auto bg-[#FFFFFF80] flex-col justify-between rounded-tr-[100px] rounded-br-[100px] py-10 px-[52px] text-white">
                 <div>
@@ -141,14 +145,13 @@ const Group = () => {
                     </div>
                 </div>
 
-
                 <div className="mt-10 flex flex-col gap-6">
                     {filteredGroups.map((group) => (
                         <div key={group.id} className="flex items-center justify-between bg-white p-4 rounded-2xl shadow-md">
                             <div>
                                 <h2 className="text-[#6672EA] text-[32px] font-[600] text-lg">{group.groupName}</h2>
                                 <p className="text-gray-500 text-[20px] font-[400]">
-                                    ₦{group.groupAmount} {group.groupPlan} pack ₦{calculateGroupTarget(group)} • {group.members?. length || 0}/{group.groupMembers} members
+                                    ₦{group.groupAmount} {group.groupPlan.toLowerCase()} pack ₦{calculateGroupTarget(group)} • {group.members?.length || 0}/{group.groupMembers} members
                                 </p>
                             </div>
                         </div>
@@ -162,13 +165,13 @@ const Group = () => {
                     </div>
                 </div>
 
-
-
-
-
-
             </div>
-
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                closeOnClick
+                pauseOnHover
+            />
         </div>
     )
 }

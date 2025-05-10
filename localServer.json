@@ -21,23 +21,13 @@
   ],
   "loggedInUser": [
     {
-      "id": "62dd",
-      "username": "Darasimi",
-      "email": "darasimi@gmail.com",
-      "password": "biigdara"
+      "id": "a5d6",
+      "username": "helo",
+      "email": "hsdjs@gmail.com",
+      "password": "jfjdjsjs"
     }
   ],
   "availableGroups": [
-    {
-      "id": "c2f4",
-      "groupName": "Paul's Group",
-      "groupDuration": "7 days",
-      "groupAmount": "1000",
-      "groupPlan": "Daily",
-      "groupInterest": "100.00",
-      "groupMembers": "3",
-      "groupLink": "http://localhost:3000/join_thrift/c2f4"
-    },
     {
       "id": "823d",
       "groupName": "SQI",
@@ -63,17 +53,6 @@
       ]
     },
     {
-      "id": "4765",
-      "groupName": "Dorcas",
-      "groupDuration": "7 days",
-      "groupAmount": "4000",
-      "groupPlan": "Daily",
-      "groupInterest": "400.00",
-      "groupMembers": "2",
-      "groupLink": "http://localhost:3000/join_thrift/4765",
-      "members": []
-    },
-    {
       "id": "4afe",
       "groupName": "Fola",
       "groupDuration": "7 days",
@@ -83,6 +62,50 @@
       "groupMembers": "9",
       "members": [],
       "groupLink": "http://localhost:3000/join_thrift/4afe"
+    },
+    {
+      "id": "2e61",
+      "groupName": "David",
+      "groupDuration": "1 year",
+      "groupAmount": "9000",
+      "groupPlan": "Monthly",
+      "groupInterest": "900.00",
+      "groupMembers": "5",
+      "members": [],
+      "groupLink": "http://localhost:3000/join_thrift/2e61"
+    },
+    {
+      "id": "e921",
+      "groupName": "Dan",
+      "groupDuration": "30 days",
+      "groupAmount": "1000",
+      "groupPlan": "Weekly",
+      "groupInterest": "100.00",
+      "groupMembers": "5",
+      "members": [],
+      "groupLink": "http://localhost:3000/join_thrift/e921"
+    },
+    {
+      "id": "11ed",
+      "groupName": "Iso",
+      "groupDuration": "7 days",
+      "groupAmount": "2000",
+      "groupPlan": "Daily",
+      "groupInterest": "200.00",
+      "groupMembers": "4",
+      "members": [],
+      "groupLink": "http://localhost:3000/join_thrift/11ed"
+    },
+    {
+      "id": "7bae",
+      "groupName": "Sultan",
+      "groupDuration": "7 days",
+      "groupAmount": "1000",
+      "groupPlan": "Daily",
+      "groupInterest": "100.00",
+      "groupMembers": "3",
+      "members": [],
+      "groupLink": "http://localhost:3000/join_thrift/7bae"
     }
   ]
 }

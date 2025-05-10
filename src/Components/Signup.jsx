@@ -4,9 +4,11 @@ import { useState } from 'react'
 import axios from 'axios'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
+import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-
+    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
 
     const [formData, setFormData] = useState({
@@ -23,15 +25,18 @@ const Signup = () => {
         e.preventDefault();
         try {
             await axios.post('http://localhost:5000/users', formData);
-            alert('Account Created Successfully');
+            toast.success("Account Created Successfully")
             setFormData({
                 username: '',
                 email: '',
                 password: ''
             });
+            setTimeout(() => {
+                navigate("/login")
+            }, 4000);
         } catch (error) {
             console.error('Signup error', error);
-            alert('Signup failed')
+            toast.error("Error creating account")
         }
     }
 
@@ -94,6 +99,12 @@ const Signup = () => {
                     <Link to='/login' className='text-center text-[#6672EA]'> Already have an account? <span className='underline'>Sign In</span></Link>
                 </div>
             </form>
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                closeOnClick
+                pauseOnHover
+            />
         </div>
     )
 }

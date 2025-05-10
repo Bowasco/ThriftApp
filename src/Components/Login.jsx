@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
+import { toast, ToastContainer } from 'react-toastify'
 
 const Login = () => {
-
 
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
@@ -51,8 +51,10 @@ const Login = () => {
           .then((res) => {
             console.log(res);
             localStorage.setItem('loggedInUser', JSON.stringify(res.data));
-            alert("Login successful")
-            navigate('/dashboard')
+            toast.success("Login Successful")
+            setTimeout(() => {
+              navigate('/dashboard')
+            }, 4000);
             setformData({
               email: '',
               password: ''
@@ -63,7 +65,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Login error", error)
-      alert("Something went wrong")
+      toast.error("Error logging in")
     }
   }
 
@@ -115,6 +117,12 @@ const Login = () => {
           <Link to='/signup' className='text-center text-[#6672EA]'>Don't have an account? <span className='underline'>Sign Up</span></Link>
         </div>
       </form>
+      <ToastContainer 
+        position="top-center"
+        autoClose={3000}
+        closeOnClick
+        pauseOnHover
+      />
     </div>
   )
 }

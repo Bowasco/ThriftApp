@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Create = () => {
 
@@ -37,20 +39,22 @@ const Create = () => {
                 groupLink
             });
 
-            alert("Group created successfully")
-            navigate("/group")
+            toast.success("Group created successfully");
+            setTimeout(() => {
+                navigate("/group");
+            }, 4000);
         } catch (error) {
             console.error("Error creating group:", error)
-            alert("Failed to create group")
+            toast.error("Error creating group")
         }
     }
 
     useEffect(() => {
         if (groupDuration === "7 days") {
             setGroupPlan("Daily")
-        }else if (groupDuration === "30 days") {
+        } else if (groupDuration === "30 days") {
             setGroupPlan("Weekly")
-        }else if (groupDuration === "1 year") {
+        } else if (groupDuration === "1 year") {
             setGroupPlan("Monthly")
         }
     }, [groupDuration])
@@ -58,7 +62,7 @@ const Create = () => {
     const handleDurationChange = (e) => {
         setGroupDuration(e.target.value);
     };
-    
+
 
     return (
         <div>
@@ -85,7 +89,8 @@ const Create = () => {
                                     value={groupDuration}
                                     onChange={(e) => {
                                         handleDurationChange(e)
-                                        setGroupDuration(e.target.value)}}
+                                        setGroupDuration(e.target.value)
+                                    }}
                                     className="bg-[#6672EA33] w-[400px] px-[32px] py-[10px] focus:outline-none rounded-[30px] text-[#00000080] text-[24px]"
                                 >
                                     <option value="">-- Please set thrift duration --</option>
@@ -163,6 +168,12 @@ const Create = () => {
                     </div>
                 </div>
             </form>
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                closeOnClick
+                pauseOnHover
+            />
         </div>
     )
 }
