@@ -10,27 +10,26 @@ import { useNavigate } from 'react-router-dom';
 const Signup = () => {
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
 
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: ''
-    });
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const newGroup = {
+            username,
+            password,
+            email
+        };
+
         try {
-            await axios.post('http://localhost:5000/users', formData);
+            await axios.post('http://localhost:5000/users', newGroup);
             toast.success("Account Created Successfully")
-            setFormData({
-                username: '',
-                email: '',
-                password: ''
-            });
+            setUsername("")
+            setPassword("")
+            setEmail("")
             setTimeout(() => {
                 navigate("/login")
             }, 4000);
@@ -54,10 +53,10 @@ const Signup = () => {
                                     <p className='text-[#00000080] text-[24px] font-[400]'>Username</p>
                                     <input
                                         name='username'
-                                        value={formData.username}
+                                        value={username}
                                         className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
                                         type="text"
-                                        onChange={handleChange}
+                                        onChange={(e)=> setUsername(e.target.value)}
                                         required
                                     />
                                 </div>
@@ -65,10 +64,10 @@ const Signup = () => {
                                     <p className='text-[#00000080] text-[24px] font-[400]'>Email</p>
                                     <input
                                         name='email'
-                                        value={formData.email}
+                                        value={email}
                                         className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
                                         type="email"
-                                        onChange={handleChange}
+                                        onChange={(e)=> setEmail(e.target.value)}
                                         required
                                     />
                                 </div>
@@ -77,9 +76,9 @@ const Signup = () => {
                                     <div className="relative mt-[22px]">
                                         <input
                                             name="password"
-                                            value={formData.password}
+                                            value={password}
                                             type={showPassword ? "text" : "password"}
-                                            onChange={handleChange}
+                                            onChange={(e)=> setPassword(e.target.value)}
                                             required
                                             className="w-full bg-[#6672EA33] border pt-[10px] pb-[10px] pr-[50px] pl-[32px] rounded-[30px] focus:outline-none"
                                         />

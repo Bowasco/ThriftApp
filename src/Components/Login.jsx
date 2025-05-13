@@ -12,15 +12,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
   const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-  const [formData, setformData] = useState({
-    email: '',
-    password: '',
-  })
-
-  const handleChange = (e) => {
-    setformData({ ...formData, [e.target.name]: e.target.value })
-  }
 
   const alreadyLoggedInF = async () => {
     await axios.get('http://localhost:5000/loggedInUser')
@@ -42,7 +36,7 @@ const Login = () => {
     try {
       const res = await axios.get('http://localhost:5000/users');
       const user = res.data.find(
-        (u) => u.email === formData.email && u.password === formData.password
+        (u) => u.email === email && u.password === password
       );
 
       if (user) {
@@ -55,10 +49,8 @@ const Login = () => {
             setTimeout(() => {
               navigate('/dashboard')
             }, 4000);
-            setformData({
-              email: '',
-              password: ''
-            })
+            setEmail("")
+            setPassword("")
           })
       } else {
         alert("Invalid Credentials")
@@ -86,8 +78,8 @@ const Login = () => {
                     name='email'
                     className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
                     type="text"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={email}
+                    onChange={(e)=> setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -98,8 +90,8 @@ const Login = () => {
                       name='password'
                       className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
                       type={showPassword ? "text" : "password"}
-                      value={formData.password}
-                      onChange={handleChange}
+                      value={password}
+                      onChange={(e)=> setPassword(e.target.value)}
                       required
                     />
                     <span

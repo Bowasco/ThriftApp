@@ -57,6 +57,14 @@ const JoinGroup = () => {
 
   const joinThrift = () => {
     const alreadyJoinedThrift = thrift.members.find((el) => el.id == thriftUser.id)
+    const groupCapacity = thrift.groupMembers.length;
+    const currentMembers = thrift.members.length;
+
+    if (currentMembers >= groupCapacity) {
+      alert("Group is full")
+      return;
+    }
+
     if (alreadyJoinedThrift) {
       alert("You are already in the Thrift");
       return;

@@ -17,6 +17,12 @@
       "username": "helo",
       "email": "hsdjs@gmail.com",
       "password": "jfjdjsjs"
+    },
+    {
+      "id": "4157",
+      "username": "Alaba",
+      "password": "alaba01",
+      "email": "alaba@gmail.com"
     }
   ],
   "loggedInUser": [
