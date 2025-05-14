@@ -4,25 +4,54 @@
       "id": "3154",
       "username": "paul",
       "email": "babsopeyemi2020@gmail.com",
-      "password": "debowale"
+      "password": "debowale",
+      "walletBalance": 2000,
+      "walletHistory": []
     },
     {
       "id": "62dd",
       "username": "Darasimi",
       "email": "darasimi@gmail.com",
-      "password": "biigdara"
+      "password": "biigdara",
+      "walletBalance": 1000,
+      "walletHistory": []
     },
     {
       "id": "a5d6",
       "username": "helo",
       "email": "hsdjs@gmail.com",
-      "password": "jfjdjsjs"
+      "password": "jfjdjsjs",
+      "walletBalance": 10000,
+      "walletHistory": [
+        {
+          "id": 1747231458715,
+          "amount": 200,
+          "date": "2025-05-14T14:04:18.716Z"
+        },
+        {
+          "id": 1747232582600,
+          "amount": 100,
+          "date": "2025-05-14T14:23:02.600Z"
+        },
+        {
+          "id": 1747232602105,
+          "amount": 700,
+          "date": "2025-05-14T14:23:22.105Z"
+        },
+        {
+          "id": 1747233361526,
+          "amount": 1000,
+          "date": "2025-05-14T14:36:01.526Z"
+        }
+      ]
     },
     {
       "id": "4157",
       "username": "Alaba",
       "password": "alaba01",
-      "email": "alaba@gmail.com"
+      "email": "alaba@gmail.com",
+      "walletBalance": 0,
+      "walletHistory": []
     }
   ],
   "loggedInUser": [

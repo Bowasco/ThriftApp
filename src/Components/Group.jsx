@@ -90,7 +90,7 @@ const Group = () => {
                             <span><img src={group2} alt="" className='w-[24px]' /></span>
                             <span className='text-[24px] text-[#939393] font-[400]'>Group</span>
                         </Link>
-                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                        <Link className="flex items-center gap-3 hover:text-gray-300" to='/fundwallet'>
                             <span><img src={wallet} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Fund Wallet</span>
                         </Link>

@@ -8,6 +8,7 @@ import Dashboard from './Components/Dashboard';
 import Group from './Components/Group';
 import Create from './Components/Create';
 import JoinGroup from './Components/JoinGroup';
+import FundWallet from './Components/FundWallet';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path='/group' element={<Group />}/>
       <Route path='/create' element={<Create />}/>
       <Route path='/join_thrift/:thrift_id' element={<JoinGroup />}/>
+      <Route path='/fundwallet' element={<FundWallet />}/>
     </Routes>
   );
 }
