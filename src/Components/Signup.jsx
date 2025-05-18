@@ -13,6 +13,7 @@ const Signup = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
+    const [fullname, setFullName] = useState("")
 
 
     const handleSubmit = async (e) => {
@@ -21,7 +22,8 @@ const Signup = () => {
         const newGroup = {
             username,
             password,
-            email
+            email,
+            fullname
         };
 
         try {
@@ -30,6 +32,7 @@ const Signup = () => {
             setUsername("")
             setPassword("")
             setEmail("")
+            setFullName("")
             setTimeout(() => {
                 navigate("/login")
             }, 4000);
@@ -45,10 +48,21 @@ const Signup = () => {
         <div className='h-screen flex custom-bg'>
             <form onSubmit={handleSubmit} className='w-[718px] m-auto bg-white rounded-[30px]'>
                 <div className=' m-auto bg-white flex flex-col gap-[22px] rounded-[30px] p-5'>
-                    <div className='w-[690px] m-auto flex flex-col gap-[42px] px-[64px]'>
+                    <div className='w-[690px] m-auto space-y-[20px] px-[64px]'>
                         <div>
-                            <h2 className='text-[48px] font-[600] text-center'>Create account</h2>
-                            <div className='flex flex-col gap-[24px]'>
+                            <h2 className='text-[38px] font-[600] text-center'>Create account</h2>
+                            <div className=''>
+                                <div>
+                                    <p className='text-[#00000080] text-[24px] font-[400]'>Full Name</p>
+                                    <input
+                                        name='username'
+                                        value={fullname}
+                                        className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
+                                        type="text"
+                                        onChange={(e) => setFullName(e.target.value)}
+                                        required
+                                    />
+                                </div>
                                 <div>
                                     <p className='text-[#00000080] text-[24px] font-[400]'>Username</p>
                                     <input
@@ -56,7 +70,7 @@ const Signup = () => {
                                         value={username}
                                         className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
                                         type="text"
-                                        onChange={(e)=> setUsername(e.target.value)}
+                                        onChange={(e) => setUsername(e.target.value)}
                                         required
                                     />
                                 </div>
@@ -67,7 +81,7 @@ const Signup = () => {
                                         value={email}
                                         className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
                                         type="email"
-                                        onChange={(e)=> setEmail(e.target.value)}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         required
                                     />
                                 </div>
@@ -78,7 +92,7 @@ const Signup = () => {
                                             name="password"
                                             value={password}
                                             type={showPassword ? "text" : "password"}
-                                            onChange={(e)=> setPassword(e.target.value)}
+                                            onChange={(e) => setPassword(e.target.value)}
                                             required
                                             className="w-full bg-[#6672EA33] border pt-[10px] pb-[10px] pr-[50px] pl-[32px] rounded-[30px] focus:outline-none"
                                         />

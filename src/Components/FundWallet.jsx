@@ -54,6 +54,11 @@ const FundWallet = () => {
                 walletHistory: [...currentHistory, newTransaction]
             })
 
+            await axios.patch(`http://localhost:5000/loggedInUser/${user.id}`, {
+                walletBalance: newBalance,
+                walletHistory: [...currentHistory, newTransaction]
+            })
+
             // FETCH NEW DATA
             const updatedUser = await axios.get(`http://localhost:5000/users/${user.id}`);
             setWalletBalance(updatedUser.data.walletBalance || 0);
@@ -117,7 +122,7 @@ const FundWallet = () => {
                             <span><img src={payment} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Track Payment</span>
                         </Link>
-                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                        <Link className="flex items-center gap-3 hover:text-gray-300" to='/settings'>
                             <span><img src={settings} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Settings</span>
                         </Link>

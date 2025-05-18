@@ -23,6 +23,7 @@ const Dashboard = () => {
     const navigate = useNavigate()
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("loggedInUser")))
+    const [accountBalance, setAccountBalance] = useState("")
 
     useEffect(() => {
         console.log(user);
@@ -47,6 +48,15 @@ const Dashboard = () => {
         })
     }, [])
 
+    useEffect(() => {
+        axios.get(`http://localhost:5000/loggedInUser/${user.id}`)
+        .then((res)=>{
+            console.log(res);
+            setAccountBalance(res.data.walletBalance);
+        })
+    }, [])
+    
+
     const handleLogOut = async () => {
         try {
             localStorage.removeItem("loggedInUser");
@@ -66,7 +76,7 @@ const Dashboard = () => {
         <div className='bg-[#EFF2F9] flex flex-col md:flex-row min-h-screen'>
 
             {/* SIDENAV */}
-            <div className="hidden md:flex md:w-3/12 overflow-y-auto bg-[#FFFFFF80] flex-col justify-between rounded-tr-[100px] rounded-br-[100px] py-10 px-[52px] text-white">
+            <nav className="hidden md:flex md:w-3/12 overflow-y-auto bg-[#FFFFFF80] flex-col justify-between rounded-tr-[100px] rounded-br-[100px] py-10 px-[52px] text-white">
                 <div>
                     <div className="mb-10">
                         <img src={Logo} alt="Logo" className="w-[90px] h-[28px]" />
@@ -93,7 +103,7 @@ const Dashboard = () => {
                             <span><img src={payment} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Track Payment</span>
                         </Link>
-                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                        <Link className="flex items-center gap-3 hover:text-gray-300" to='/settings'>
                             <span><img src={settings} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Settings</span>
                         </Link>
@@ -103,12 +113,11 @@ const Dashboard = () => {
                         </Link>
                     </div>
                 </div>
-            </div>
+            </nav>
 
             {/* MAIN CONTENT */}
             <div className='w-full md:w-9/12 mx-auto px-4 flex-grow'>
                 <div className='mt-8 flex flex-col md:flex-row md:justify-between gap-4'>
-                    {/* Search Input */}
                     <div className='flex items-center gap-[7px] w-full md:w-[625px] bg-white rounded-[30px] p-[10px]'>
                         <img src={search} alt="" className='w-[20px] h-[20px]' />
                         <input
@@ -118,7 +127,6 @@ const Dashboard = () => {
                         />
                     </div>
 
-                    {/* Icons and Profile */}
                     <div className='flex justify-between md:justify-end items-center gap-[21px] flex-wrap'>
                         <div className='flex items-center gap-[12px] md:gap-[24px]'>
                             <img src={speaker} alt="" className='w-[24px] h-[24px]' />
@@ -148,7 +156,7 @@ const Dashboard = () => {
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-5'>
                         <div className="bg-[#6672EA] py-3 px-[42px]">
                             <p className='text-[17px] text-[#FFFFFF] font-[600]'>ACCOUNT BALANCE</p>
-                            <p className='text-[28px] text-[#FFFFFF] font-[400]'>₦6,200,023.79</p>
+                            <p className='text-[28px] text-[#FFFFFF] font-[400]'>₦{accountBalance}</p>
                         </div>
                         <div className="bg-[#7395F9] py-3 px-[42px]">
                             <p className='text-[17px] text-[#FFFFFF] font-[600]'>NEW MEMBERS</p>

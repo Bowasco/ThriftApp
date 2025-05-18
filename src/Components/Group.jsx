@@ -73,9 +73,9 @@ const Group = () => {
 
 
     return (
-        <div className='bg-[#EFF2F9] flex'>
+        <div className='bg-[#EFF2F9] flex h-screen'>
             {/* SIDENAV */}
-            <div className="hidden md:flex md:w-3/12 overflow-y-auto bg-[#FFFFFF80] flex-col justify-between rounded-tr-[100px] rounded-br-[100px] py-10 px-[52px] text-white">
+            <nav className="hidden md:flex md:w-3/12 overflow-y-auto bg-[#FFFFFF80] flex-col justify-between rounded-tr-[100px] rounded-br-[100px] py-10 px-[52px] text-white">
                 <div>
                     <div className="mb-10">
                         <img src={Logo} alt="Logo" className="w-[90px] h-[28px]" />
@@ -102,7 +102,7 @@ const Group = () => {
                             <span><img src={payment} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Track Payment</span>
                         </Link>
-                        <Link className="flex items-center gap-3 hover:text-gray-300">
+                        <Link className="flex items-center gap-3 hover:text-gray-300" to='/settings'>
                             <span><img src={settings} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Settings</span>
                         </Link>
@@ -112,7 +112,7 @@ const Group = () => {
                         </Link>
                     </div>
                 </div>
-            </div>
+            </nav>
 
 
 

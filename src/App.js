@@ -9,6 +9,7 @@ import Group from './Components/Group';
 import Create from './Components/Create';
 import JoinGroup from './Components/JoinGroup';
 import FundWallet from './Components/FundWallet';
+import Settings from './Components/Settings';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path='/create' element={<Create />}/>
       <Route path='/join_thrift/:thrift_id' element={<JoinGroup />}/>
       <Route path='/fundwallet' element={<FundWallet />}/>
+      <Route path='/settings' element={<Settings />}/>
     </Routes>
   );
 }
