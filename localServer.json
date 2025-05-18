@@ -121,6 +121,9 @@
       "groupPlan": "Daily",
       "groupInterest": "200.00",
       "groupMembers": "2",
+      "groupWallet": 0,
+      "amountToReceive": 400,
+      "receiving_id": 1,
       "groupLink": "http://localhost:3000/join_thrift/823d",
       "members": [
         {
@@ -145,7 +148,37 @@
       "groupPlan": "Daily",
       "groupInterest": "500.00",
       "groupMembers": "9",
-      "members": [],
+      "groupWallet": 0,
+      "amountToReceive": 35000,
+      "receiving_id": 1,
+      "members": [
+        {
+          "id": "5d27",
+          "username": "Sendo",
+          "password": "effiong12",
+          "email": "sendo@gmail.com",
+          "fullName": "Micheal Ogunsanya",
+          "thrift_no": 1,
+          "walletBalance": 3000,
+          "walletHistory": [
+            {
+              "id": 1747402172645,
+              "amount": 1500,
+              "date": "2025-05-16T13:29:32.645Z"
+            },
+            {
+              "id": 1747403542257,
+              "amount": 500,
+              "date": "2025-05-16T13:52:22.257Z"
+            },
+            {
+              "id": 1747482929600,
+              "amount": 1000,
+              "date": "2025-05-17T11:55:29.600Z"
+            }
+          ]
+        }
+      ],
       "groupLink": "http://localhost:3000/join_thrift/4afe"
     },
     {
@@ -157,6 +190,9 @@
       "groupInterest": "200.00",
       "groupMembers": "4",
       "members": [],
+      "groupWallet": 0,
+      "amountToReceive": 8000,
+      "receiving_id": 1,
       "groupLink": "http://localhost:3000/join_thrift/11ed"
     },
     {
@@ -167,6 +203,9 @@
       "groupPlan": "Daily",
       "groupInterest": "100.00",
       "groupMembers": "3",
+      "groupWallet": 0,
+      "amountToReceive": 3000,
+      "receiving_id": 1,
       "members": [],
       "groupLink": "http://localhost:3000/join_thrift/7bae"
     }

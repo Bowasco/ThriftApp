@@ -17,10 +17,11 @@ const Login = () => {
 
 
   const alreadyLoggedInF = async () => {
-    await axios.get('http://localhost:5000/loggedInUser')
+    await axios.get('http://localhost:5001/loggedInUser')
       .then((res) => {
         if (res.data.length > 0) {
           setAlreadyLoggedIn(true)
+          localStorage.setItem('loggedInUser', JSON.stringify(res.data[0]));
           navigate("/dashboard");
         }
       })
@@ -34,14 +35,14 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.get('http://localhost:5000/users');
+      const res = await axios.get('http://localhost:5001/users');
       const user = res.data.find(
         (u) => u.email === email && u.password === password
       );
 
       if (user) {
         console.log(user);
-        axios.post('http://localhost:5000/loggedInUser', user)
+        axios.post('http://localhost:5001/loggedInUser', user)
           .then((res) => {
             console.log(res);
             localStorage.setItem('loggedInUser', JSON.stringify(res.data));

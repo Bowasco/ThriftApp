@@ -27,11 +27,11 @@ const Dashboard = () => {
 
     useEffect(() => {
         console.log(user);
-        if (!user) {
+        if (user == null) {
             navigate("/login")
             return;
         }
-        axios.get('http://localhost:5000/loggedInUser').then((res) => {
+        axios.get('http://localhost:5001/loggedInUser').then((res) => {
             console.log(res)
             if (res.data.length > 0) {
                 if (res.data[0].id === user.id) {
@@ -49,7 +49,8 @@ const Dashboard = () => {
     }, [])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/loggedInUser/${user.id}`)
+        if(user == null) return;
+        axios.get(`http://localhost:5001/loggedInUser/${user.id}`)
         .then((res)=>{
             console.log(res);
             setAccountBalance(res.data.walletBalance);
@@ -61,7 +62,7 @@ const Dashboard = () => {
         try {
             localStorage.removeItem("loggedInUser");
             if (user) {
-                await axios.delete(`http://localhost:5000/loggedInUser/${user.id}`)
+                await axios.delete(`http://localhost:5001/loggedInUser/${user.id}`)
                 alert("Logout Successful")
                 navigate('/login')
             }

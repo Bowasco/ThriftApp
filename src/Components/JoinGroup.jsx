@@ -20,7 +20,7 @@ const JoinGroup = () => {
       navigate('/login')
       return;
     }
-    axios.get('http://localhost:5000/loggedInUser').then((res) => {
+    axios.get('http://localhost:5001/loggedInUser').then((res) => {
       console.log(res);
       if (res.data.length > 0) {
         if (res.data[0].id === user.id) {
@@ -41,7 +41,7 @@ const JoinGroup = () => {
     console.log(params);
     console.log(params.thrift_id);
     if (params.thrift_id) {
-      axios.get(`http://localhost:5000/availableGroups/${params.thrift_id}`).then((res) => {
+      axios.get(`http://localhost:5001/availableGroups/${params.thrift_id}`).then((res) => {
         console.log(res);
         setThrift(res.data)
       }).catch((err) => {
@@ -70,7 +70,7 @@ const JoinGroup = () => {
       return;
     }
     thrift.members.push(thriftUser)
-    axios.patch(`http://localhost:5000/availableGroups/${thrift.id}`, thrift).then((res) => {
+    axios.patch(`http://localhost:5001/availableGroups/${thrift.id}`, thrift).then((res) => {
       console.log(res);
       alert('Successfully joined Thrift')
     }).catch((error) => {

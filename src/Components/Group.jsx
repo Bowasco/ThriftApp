@@ -29,7 +29,7 @@ const Group = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:5000/availableGroups')
+        axios.get('http://localhost:5001/availableGroups')
             .then((res) => {
                 setGroup(res.data);
                 setFilteredGroups(res.data);
@@ -59,7 +59,7 @@ const Group = () => {
         try {
             localStorage.removeItem("loggedInUser");
             if (user) {
-                await axios.delete(`http://localhost:5000/loggedInUser/${user.id}`)
+                await axios.delete(`http://localhost:5001/loggedInUser/${user.id}`)
                 toast.success("Logout Successful")
                 setTimeout(() => {
                     navigate('/login')
@@ -69,6 +69,19 @@ const Group = () => {
             console.log('Unable to logout', error);
             toast.error("Error logging out")
         }
+    }
+
+    const getThrift = async(id)=>{
+        axios.get(`http://localhost:5001/availableGroups/${id}`).then((res)=>{
+            const joinedThrift = res.data.members;
+            const foundMember = joinedThrift.find((el) => el.id == user.id);
+
+            if(!foundMember){
+                alert("You are not a member of the thrift");
+                return;
+            }
+            navigate(`/thrift/${id}`)
+        })
     }
 
 
@@ -148,7 +161,7 @@ const Group = () => {
                 <div className="mt-10 flex flex-col gap-6">
                     {filteredGroups.map((group) => (
                         <div key={group.id} className="flex items-center justify-between bg-white p-4 rounded-2xl shadow-md">
-                            <div>
+                            <div onClick={()=>getThrift(group.id)}>
                                 <h2 className="text-[#6672EA] text-[32px] font-[600] text-lg">{group.groupName}</h2>
                                 <p className="text-gray-500 text-[20px] font-[400]">
                                     ₦{group.groupAmount} {group.groupPlan.toLowerCase()} pack ₦{calculateGroupTarget(group)} • {group.members?.length || 0}/{group.groupMembers} members
