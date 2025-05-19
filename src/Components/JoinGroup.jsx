@@ -57,18 +57,20 @@ const JoinGroup = () => {
 
   const joinThrift = () => {
     const alreadyJoinedThrift = thrift.members.find((el) => el.id == thriftUser.id)
-    const groupCapacity = thrift.groupMembers.length;
+    const groupCapacity = thrift.groupMembers;
     const currentMembers = thrift.members.length;
+
+    
+    if (alreadyJoinedThrift) {
+      alert("You are already in the Thrift");
+      return;
+    }
 
     if (currentMembers >= groupCapacity) {
       alert("Group is full")
       return;
     }
 
-    if (alreadyJoinedThrift) {
-      alert("You are already in the Thrift");
-      return;
-    }
     thrift.members.push(thriftUser)
     axios.patch(`http://localhost:5000/availableGroups/${thrift.id}`, thrift).then((res) => {
       console.log(res);
