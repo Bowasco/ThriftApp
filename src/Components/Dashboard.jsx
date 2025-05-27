@@ -17,13 +17,14 @@ import { FaAngleRight } from "react-icons/fa6";
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
 
 const Dashboard = () => {
 
     const navigate = useNavigate()
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("loggedInUser")))
-    const [accountBalance, setAccountBalance] = useState("")
+    const [accountBalance, setAccountBalance] = useState(null)
 
     useEffect(() => {
         console.log(user);
@@ -50,23 +51,31 @@ const Dashboard = () => {
 
     useEffect(() => {
         axios.get(`http://localhost:5000/loggedInUser/${user.id}`)
-        .then((res)=>{
-            console.log(res);
-            setAccountBalance(res.data.walletBalance);
-        })
+            .then((res) => {
+                console.log(res);
+                setAccountBalance(res.data.walletBalance);
+            })
     }, [])
-    
+
 
     const handleLogOut = async () => {
+        const isConfirmed = window.confirm("Confirm Logout?")
+        if (!isConfirmed) {
+            return;
+        }
+
         try {
             localStorage.removeItem("loggedInUser");
             if (user) {
                 await axios.delete(`http://localhost:5000/loggedInUser/${user.id}`)
-                alert("Logout Successful")
-                navigate('/login')
+                toast.success("Logout Successful")
+                setTimeout(() => {
+                    navigate('/login')
+                }, 4000);
             }
         } catch (error) {
             console.log('Unable to logout', error);
+            toast.error("Error logging out")
         }
     }
 
@@ -230,6 +239,12 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                closeOnClick
+                pauseOnHover
+            />
         </div>
     )
 }

@@ -102,6 +102,11 @@ const Settings = () => {
 
     // LOGOUT FUNCTIONALITY
     const handleLogOut = async () => {
+        const isConfirmed = window.confirm("Confirm Logout?")
+        if (!isConfirmed) {
+            return;
+        }
+
         try {
             localStorage.removeItem("loggedInUser");
             if (user) {
@@ -116,6 +121,8 @@ const Settings = () => {
             toast.error("Error logging out")
         }
     }
+
+    
     return (
         <div className='bg-[#EFF2F9] flex h-screen'>
             <nav className="hidden md:flex md:w-3/12 overflow-y-auto bg-[#FFFFFF80] flex-col justify-between rounded-tr-[100px] rounded-br-[100px] py-10 px-[52px] text-white">

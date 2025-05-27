@@ -48,7 +48,7 @@ const Login = () => {
             toast.success("Login Successful")
             setTimeout(() => {
               navigate('/dashboard')
-            }, 4000);
+            }, 3000);
             setEmail("")
             setPassword("")
           })
@@ -79,7 +79,7 @@ const Login = () => {
                     className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
                     type="text"
                     value={email}
-                    onChange={(e)=> setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -91,7 +91,7 @@ const Login = () => {
                       className='mt-[22px] border w-full bg-[#6672EA33] pt-[10px] pb-[10px] pr-[32px] pl-[32px] rounded-[30px] focus:outline-none'
                       type={showPassword ? "text" : "password"}
                       value={password}
-                      onChange={(e)=> setPassword(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)}
                       required
                     />
                     <span
@@ -109,9 +109,9 @@ const Login = () => {
           <Link to='/signup' className='text-center text-[#6672EA]'>Don't have an account? <span className='underline'>Sign Up</span></Link>
         </div>
       </form>
-      <ToastContainer 
+      <ToastContainer
         position="top-center"
-        autoClose={3000}
+        autoClose={2000}
         closeOnClick
         pauseOnHover
       />

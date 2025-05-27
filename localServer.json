@@ -7,39 +7,9 @@
       "email": "darasimi@gmail.com",
       "PhoneNumber": "07012345678",
       "password": "biigdara",
-      "walletBalance": 1000,
-      "walletHistory": []
-    },
-    {
-      "id": "a5d6",
-      "username": "BigPaul",
-      "fullname": "Paul Debo",
-      "email": "hsdjs@gmail.com",
-      "password": "adebowale2",
-      "PhoneNumber": "07012345678",
-      "walletBalance": 10000,
-      "walletHistory": [
-        {
-          "id": 1747231458715,
-          "amount": 200,
-          "date": "2025-05-14T14:04:18.716Z"
-        },
-        {
-          "id": 1747232582600,
-          "amount": 100,
-          "date": "2025-05-14T14:23:02.600Z"
-        },
-        {
-          "id": 1747232602105,
-          "amount": 700,
-          "date": "2025-05-14T14:23:22.105Z"
-        },
-        {
-          "id": 1747233361526,
-          "amount": 1000,
-          "date": "2025-05-14T14:36:01.526Z"
-        }
-      ]
+      "walletBalance": 6000,
+      "walletHistory": [],
+      "paymentStatus": "Paid"
     },
     {
       "id": "4157",
@@ -48,73 +18,22 @@
       "fullname": "Paul Debo",
       "PhoneNumber": "07012345678",
       "email": "alaba@gmail.com",
-      "walletBalance": 0,
-      "walletHistory": []
-    },
-    {
-      "id": "d3f0",
-      "username": "Topee",
-      "password": "topejeesu",
-      "email": "tope@gmail.com",
-      "fullname": "Tope",
-      "walletBalance": 5000,
-      "walletHistory": [
-        {
-          "id": 1747674020907,
-          "amount": 10000,
-          "date": "2025-05-19T17:00:20.907Z"
-        }
-      ],
+      "walletBalance": 4000,
+      "walletHistory": [],
       "paymentStatus": "Paid"
-    },
-    {
-      "id": "5d27",
-      "username": "Sendo",
-      "password": "effiong12",
-      "email": "sendo@gmail.com",
-      "fullname": "Micheal Oguns",
-      "PhoneNumber": "07099887766",
-      "walletBalance": 3000,
-      "paymentStatus": "Paid",
-      "walletHistory": [
-        {
-          "id": 1747402172645,
-          "amount": 1500,
-          "date": "2025-05-16T13:29:32.645Z"
-        },
-        {
-          "id": 1747403542257,
-          "amount": 500,
-          "date": "2025-05-16T13:52:22.257Z"
-        },
-        {
-          "id": 1747482929600,
-          "amount": 1000,
-          "date": "2025-05-17T11:55:29.600Z"
-        },
-        {
-          "id": 1747581972895,
-          "amount": 5000,
-          "date": "2025-05-18T15:26:12.895Z"
-        }
-      ]
     }
   ],
   "loggedInUser": [
     {
-      "id": "d3f0",
-      "username": "Topee",
-      "password": "topejeesu",
-      "email": "tope@gmail.com",
-      "fullname": "Tope",
-      "walletBalance": 10000,
-      "walletHistory": [
-        {
-          "id": 1747674020907,
-          "amount": 10000,
-          "date": "2025-05-19T17:00:20.907Z"
-        }
-      ]
+      "id": "4157",
+      "username": "Alaba",
+      "password": "alaba01",
+      "fullname": "Paul Debo",
+      "PhoneNumber": "07012345678",
+      "email": "alaba@gmail.com",
+      "walletBalance": 2000,
+      "walletHistory": [],
+      "paymentStatus": "Paid"
     }
   ],
   "availableGroups": [
@@ -128,22 +47,32 @@
       "groupMembers": "2",
       "groupWallet": 0,
       "amountToReceive": 4000,
-      "receiving_id": 1,
+      "receiving_id": 3,
       "groupLink": "http://localhost:3000/join_thrift/823d",
       "members": [
         {
-          "id": "2396",
-          "username": "Debo",
-          "email": "bowale@gmail.com",
-          "password": "bowale",
-          "receiving": false
-        },
-        {
           "id": "62dd",
           "username": "Darasimi",
+          "fullname": "Paul Debo",
           "email": "darasimi@gmail.com",
+          "PhoneNumber": "07012345678",
           "password": "biigdara",
-          "receiving": false
+          "walletBalance": 6000,
+          "walletHistory": [],
+          "paymentStatus": "Unpaid",
+          "receiving_id": 1
+        },
+        {
+          "id": "4157",
+          "username": "Alaba",
+          "password": "alaba01",
+          "fullname": "Paul Debo",
+          "PhoneNumber": "07012345678",
+          "email": "alaba@gmail.com",
+          "walletBalance": 0,
+          "walletHistory": [],
+          "paymentStatus": "Unpaid",
+          "receiving_id": 2
         }
       ]
     },
@@ -155,9 +84,9 @@
       "groupPlan": "Daily",
       "groupInterest": "500.00",
       "groupMembers": "9",
-      "groupWallet": 10000,
+      "groupWallet": 15000,
       "amountToReceive": 35000,
-      "receiving_id": 1,
+      "receiving_id": 2,
       "members": [
         {
           "id": "5d27",
@@ -200,6 +129,17 @@
               "date": "2025-05-19T17:00:20.907Z"
             }
           ],
+          "paymentStatus": "Paid"
+        },
+        {
+          "id": "62dd",
+          "username": "Darasimi",
+          "fullname": "Paul Debo",
+          "email": "darasimi@gmail.com",
+          "PhoneNumber": "07012345678",
+          "password": "biigdara",
+          "walletBalance": 1000,
+          "walletHistory": [],
           "paymentStatus": "Paid"
         }
       ],
