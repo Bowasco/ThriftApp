@@ -55,30 +55,44 @@ const JoinGroup = () => {
   }, [])
 
 
-  const joinThrift = () => {
+  const joinThrift = async () => {
     const alreadyJoinedThrift = thrift.members.find((el) => el.id == thriftUser.id)
     const groupCapacity = thrift.groupMembers;
     const currentMembers = thrift.members.length;
 
-    
+
+    // check if user is already in the thrift
     if (alreadyJoinedThrift) {
       alert("You are already in the Thrift");
       return;
     }
 
+    // check if the thrift is full already
     if (currentMembers >= groupCapacity) {
       alert("Group is full")
       return;
     }
 
-    thrift.members.push(thriftUser)
-    axios.patch(`http://localhost:5000/availableGroups/${thrift.id}`, thrift).then((res) => {
-      console.log(res);
-      alert('Successfully joined Thrift')
-    }).catch((error) => {
-      console.log(error);
-    })
-  }
+    // Add paymentstatus and receiving_id to the member object
+    const newMember = {
+      ...thriftUser,
+      paymentStatus: "Unpaid",
+      receiving_id: currentMembers + 1
+    }
+
+    // Add the newMember object to the member array
+    const updatedMember = [...thrift.members, newMember]
+    try {
+      await axios.patch(`http://localhost:5000/availableGroups/${thrift.id}`, {
+        members: updatedMember
+      });
+
+      alert("Successfully joined Thrift");
+      navigate("/group")
+    } catch (error) {
+      console.log("Error joining thrift:", error);
+    }
+  };
 
   return (
     <div className=' h-screen flex custom-bg'>
@@ -92,10 +106,10 @@ const JoinGroup = () => {
             <h2 className='text-[30px]'>Thrift Duration- {thrift.groupDuration}</h2>
             <div className='flex gap-5 items-center'>
               <h2 className='text-[30px]'>Thrift Link- <span className='text-lg '>{thrift.groupLink}</span></h2>
-              <FaCopy onClick={()=>{
+              <FaCopy onClick={() => {
                 navigator.clipboard.writeText(thrift.groupLink)
                 alert('Link copied to clipboard')
-              }}/>
+              }} />
             </div>
             <button className='w-full text-white rounded-[30px] bg-[#6672EA] py-[10px] px-[32px] text-[32px] font-[500] hover:bg-[#3f4696]' onClick={joinThrift}>Join Thrift</button>
             <Link to='/group'>

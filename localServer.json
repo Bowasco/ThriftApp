@@ -7,23 +7,10 @@
       "email": "darasimi@gmail.com",
       "PhoneNumber": "07012345678",
       "password": "biigdara",
-      "walletBalance": 6000,
-      "walletHistory": [],
-      "paymentStatus": "Paid"
-    },
-    {
-      "id": "4157",
-      "username": "Alaba",
-      "password": "alaba01",
-      "fullname": "Paul Debo",
-      "PhoneNumber": "07012345678",
-      "email": "alaba@gmail.com",
       "walletBalance": 4000,
       "walletHistory": [],
-      "paymentStatus": "Paid"
-    }
-  ],
-  "loggedInUser": [
+      "paymentStatus": "Unpaid"
+    },
     {
       "id": "4157",
       "username": "Alaba",
@@ -33,7 +20,44 @@
       "email": "alaba@gmail.com",
       "walletBalance": 2000,
       "walletHistory": [],
+      "paymentStatus": "Unpaid"
+    },
+    {
+      "id": "bc51",
+      "username": "Opajayy",
+      "password": "opeyemi",
+      "email": "opeyemi@gmail.com",
+      "fullname": "Opeyemi",
+      "walletBalance": 6000,
+      "walletHistory": [
+        {
+          "id": 1748454339844,
+          "amount": 1000,
+          "date": "2025-05-28T17:45:39.845Z"
+        }
+      ],
       "paymentStatus": "Paid"
+    },
+    {
+      "id": "7635",
+      "username": "Ola",
+      "password": "olabode01",
+      "email": "olabode@gmail.com",
+      "fullname": "Olabode",
+      "walletBalance": 0
+    }
+  ],
+  "loggedInUser": [
+    {
+      "id": "62dd",
+      "username": "Darasimi",
+      "fullname": "Paul Debo",
+      "email": "darasimi@gmail.com",
+      "PhoneNumber": "07012345678",
+      "password": "biigdara",
+      "walletBalance": 4000,
+      "walletHistory": [],
+      "paymentStatus": "Unpaid"
     }
   ],
   "availableGroups": [
@@ -44,10 +68,10 @@
       "groupAmount": "2000",
       "groupPlan": "Daily",
       "groupInterest": "200.00",
-      "groupMembers": "2",
+      "groupMembers": "3",
       "groupWallet": 0,
-      "amountToReceive": 4000,
-      "receiving_id": 3,
+      "receiving_id": 1,
+      "completed": true,
       "groupLink": "http://localhost:3000/join_thrift/823d",
       "members": [
         {
@@ -57,7 +81,7 @@
           "email": "darasimi@gmail.com",
           "PhoneNumber": "07012345678",
           "password": "biigdara",
-          "walletBalance": 6000,
+          "walletBalance": 4000,
           "walletHistory": [],
           "paymentStatus": "Unpaid",
           "receiving_id": 1
@@ -69,10 +93,27 @@
           "fullname": "Paul Debo",
           "PhoneNumber": "07012345678",
           "email": "alaba@gmail.com",
-          "walletBalance": 0,
+          "walletBalance": 2000,
           "walletHistory": [],
           "paymentStatus": "Unpaid",
           "receiving_id": 2
+        },
+        {
+          "id": "bc51",
+          "username": "Opajayy",
+          "password": "opeyemi",
+          "email": "opeyemi@gmail.com",
+          "fullname": "Opeyemi",
+          "walletBalance": 0,
+          "walletHistory": [
+            {
+              "id": 1748454339844,
+              "amount": 1000,
+              "date": "2025-05-28T17:45:39.845Z"
+            }
+          ],
+          "paymentStatus": "Unpaid",
+          "receiving_id": 3
         }
       ]
     },
@@ -83,10 +124,11 @@
       "groupAmount": 5000,
       "groupPlan": "Daily",
       "groupInterest": "500.00",
-      "groupMembers": "9",
+      "groupMembers": "5",
       "groupWallet": 15000,
       "amountToReceive": 35000,
       "receiving_id": 2,
+      "completed": false,
       "members": [
         {
           "id": "5d27",
@@ -146,58 +188,17 @@
       "groupLink": "http://localhost:3000/join_thrift/4afe"
     },
     {
-      "id": "11ed",
-      "groupName": "Iso",
+      "id": "fbd8",
+      "groupName": "Sydus",
       "groupDuration": "7 days",
       "groupAmount": "2000",
       "groupPlan": "Daily",
       "groupInterest": "200.00",
-      "groupMembers": "4",
-      "groupWallet": 0,
-      "amountToReceive": 8000,
-      "receiving_id": 1,
-      "members": [
-        {
-          "id": "5d27",
-          "username": "Sendo",
-          "password": "effiong12",
-          "email": "sendo@gmail.com",
-          "fullName": "Micheal Ogunsanya",
-          "walletBalance": 3000,
-          "walletHistory": [
-            {
-              "id": 1747402172645,
-              "amount": 1500,
-              "date": "2025-05-16T13:29:32.645Z"
-            },
-            {
-              "id": 1747403542257,
-              "amount": 500,
-              "date": "2025-05-16T13:52:22.257Z"
-            },
-            {
-              "id": 1747482929600,
-              "amount": 1000,
-              "date": "2025-05-17T11:55:29.600Z"
-            }
-          ]
-        }
-      ],
-      "groupLink": "http://localhost:3000/join_thrift/11ed"
-    },
-    {
-      "id": "7bae",
-      "groupName": "Sultan",
-      "groupDuration": "7 days",
-      "groupAmount": "1000",
-      "groupPlan": "Daily",
-      "groupInterest": "100.00",
-      "groupMembers": "3",
-      "groupWallet": 0,
-      "amountToReceive": 3000,
-      "receiving_id": 1,
+      "groupMembers": "2",
       "members": [],
-      "groupLink": "http://localhost:3000/join_thrift/7bae"
+      "groupLink": "http://localhost:3000/join_thrift/fbd8",
+      "thriftCreator": "bc51",
+      "completed": false
     }
   ]
 }

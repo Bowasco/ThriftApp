@@ -24,6 +24,11 @@ const FundWallet = () => {
 
     // GET THE WALLET BALANCE AND HISTORY FROM THE SERVER
     useEffect(() => {
+        if (!user) {
+            navigate("/login")
+            return;
+        }
+        
         axios.get(`http://localhost:5000/users/${user.id}`)
             .then((res) => {
                 setWalletBalance(res.data.walletBalance || 0);

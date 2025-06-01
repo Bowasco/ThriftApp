@@ -21,6 +21,12 @@ const GroupInfo = () => {
     const params = useParams()
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user]);
+
 
     const fetchThrift = () => {
         axios.get(`http://localhost:5000/availableGroups/${params.thrift_id}`).then((res) => {
@@ -33,11 +39,13 @@ const GroupInfo = () => {
     }
     useEffect(() => {
         fetchThrift();
-    }, [])
+    }, [params.thrift_id])
 
 
+    // MAKE PAYMENT FUNCTION 
     const makePayment = async () => {
 
+        // FIST, GET THE USER DATA THROUGH ID 
         const userResponse = await axios.get(`http://localhost:5000/users/${user.id}`);
         const currentUser = userResponse.data;
 
@@ -53,6 +61,7 @@ const GroupInfo = () => {
 
         console.log(amountToPay, userWallet);
 
+        // COMPARE USER BALANCE WITH THE AMOUNT TO PAY 
         if (userWallet < amountToPay) {
             alert("Insufficient funds, please recharge")
             return;
@@ -62,21 +71,26 @@ const GroupInfo = () => {
 
         const updateGroupWallet = thriftInfo.groupWallet + amountToPay
 
-        const updateReceivingNo = Number(receivingNo) + 1
-
         try {
             // update user's wallet and payment status
-            axios.patch(`http://localhost:5000/users/${user.id}`, {
+            await axios.patch(`http://localhost:5000/users/${user.id}`, {
+                walletBalance: updateUserWallet,
+                paymentStatus: "Paid"
+            })
+
+            // update logged in user array
+            await axios.patch(`http://localhost:5000/loggedInUser/${user.id}`, {
                 walletBalance: updateUserWallet,
                 paymentStatus: "Paid"
             })
 
 
             // update the group wallet after user pays
-            axios.patch(`http://localhost:5000/availableGroups/${thriftInfo.id}`, {
+            await axios.patch(`http://localhost:5000/availableGroups/${thriftInfo.id}`, {
                 groupWallet: updateGroupWallet,
             })
 
+            // AFTER PAYMENT, UPDATE PAYMENT STATUS AND WALLETBALANCE IN THE GROUPMEMBER ARRAY 
             const updatedMembers = thriftInfo.members.map(member => {
                 if (member.id === user.id) {
                     return {
@@ -88,6 +102,7 @@ const GroupInfo = () => {
                 return member;
             });
 
+            // UPDATE THE GROUPWALLET AND MEMBER IN THE GROUP 
             await axios.patch(`http://localhost:5000/availableGroups/${thriftInfo.id}`, {
                 members: updatedMembers,
                 groupWallet: updateGroupWallet
@@ -96,6 +111,7 @@ const GroupInfo = () => {
             setThriftMembers(updatedMembers)
             toast.success("Payment Successful")
 
+            // CHECK IF ALL MEMBERS HAVE PAID TO ACTIVATE THE DISBURSEMENT FUNCTION 
             const allPaid = updatedMembers.every(member => member.paymentStatus === "Paid");
             if (allPaid) {
                 await disburseFunds()
@@ -110,40 +126,77 @@ const GroupInfo = () => {
         try {
             const groupRes = await axios.get(`http://localhost:5000/availableGroups/${thriftInfo.id}`)
             const group = groupRes.data
+            const isCompleted = group.receiving_id >= group.members.length
 
+            if (group.completed) {
+                toast.info("Thrift disbursement already completed.");
+                return;
+            }
+
+            // ALERT WHEN MEMBERS ARENT COMPLETE 
+            if (group.members.length < group.groupMembers) {
+                toast.info("Thrift will start when all members are complete");
+                return;
+            }
+
+            // Find the member in the thrift whose receiving_id matches the receiving_id of the group
             const recipient = group.members.find(m => m.receiving_id === group.receiving_id)
 
+            // If there is none, return
             if (!recipient) {
                 toast.error("Recipient not found");
                 return
             }
 
+            // if there is, search for his details through his id
             const userRes = await axios.get(`http://localhost:5000/users/${recipient.id}`);
             const recipientUser = userRes.data;
 
+            // When seen, add the balance of the groupwallet to his wallet
             await axios.patch(`http://localhost:5000/users/${recipient.id}`, {
                 walletBalance: recipientUser.walletBalance + group.groupWallet
             })
 
+            // Update balance in the loggedInUser array too
+            if (recipient.id === user.id) {
+                await axios.patch(`http://localhost:5000/loggedInUser`, {
+                    walletBalance: recipientUser.walletBalance + group.groupWallet
+                })
+            }
+
+            // Reset the group members payment status back to unpaid
             const resetMembers = group.members.map(m => ({
                 ...m, paymentStatus: "Unpaid"
             }))
 
-            // Step 5: Update group — reset wallet, increase receiving_id, reset members
+            for (const member of resetMembers) {
+                // Update payment status in users array
+                await axios.patch(`http://localhost:5000/users/${member.id}`, {
+                    paymentStatus: "Unpaid"
+                });
+            }
+
+            await axios.patch(`http://localhost:5000/loggedInUser/${user.id}`, {
+                paymentStatus: "Unpaid"
+            })
+
+            // Update group — reset wallet, increase receiving_id, reset members
             await axios.patch(`http://localhost:5000/availableGroups/${group.id}`, {
                 groupWallet: 0,
-                receiving_id: group.receiving_id + 1,
-                members: resetMembers
+                receiving_id: group.receiving_id >= group.members.length ? 1 : group.receiving_id + 1,
+                members: resetMembers,
+                completed: isCompleted ? true : false
             });
 
             toast.success(`${recipient.username} has received ₦${group.groupWallet}!`);
-            fetchThrift(); // reload UI
+            fetchThrift(); //
         } catch (error) {
             console.error("Disbursement error:", error);
             toast.error("Disbursement failed");
         }
     }
 
+    // HANDLE LOGOUT 
     const handleLogOut = async () => {
         const isConfirmed = window.confirm("Confirm Logout?")
         if (!isConfirmed) {
@@ -205,6 +258,7 @@ const GroupInfo = () => {
                     </div>
                 </div>
             </nav>
+
             <div className=' w-4/6 mx-auto my-5 space-y-2 bg-white px-4 py-2'>
                 <div>
                     <h1 className='text-2xl'>Thrift Wallet: ₦{thriftInfo.groupWallet}</h1>
@@ -228,11 +282,13 @@ const GroupInfo = () => {
                                         </span>
                                     </td>
                                     <td>
-                                        {user.id == el.id &&
+                                        {user.id === el.id &&
                                             <div className='flex flex-col items-center'>
                                                 <button
+                                                    disabled={el.paymentStatus === "Paid"}
                                                     onClick={makePayment}
-                                                    className="bg-blue-500 px-4 py-2 hover:bg-blue-600 rounded-lg text-white"
+                                                    className={`bg-blue-500 px-4 py-2 hover:bg-blue-600 rounded-lg text-white ${el.paymentStatus === "Paid" ? 'bg-gray-400 hover:bg-gray-500 cursor-not-allowed'
+                                                        : 'bg-blue-500 hover:bg-blue-600'}`}
                                                 >
                                                     Make Payment
                                                 </button>
@@ -246,6 +302,12 @@ const GroupInfo = () => {
                     </table>
 
                 </div>
+
+                {thriftInfo.completed && (
+                    <div className="bg-green-100 text-green-700 p-2 rounded-md mt-4 text-center font-semibold">
+                        This thrift has been completed.
+                    </div>
+                )}
 
             </div>
             <ToastContainer

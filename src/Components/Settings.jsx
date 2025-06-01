@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const Settings = () => {
     const navigate = useNavigate()
@@ -24,10 +25,15 @@ const Settings = () => {
     const [currentPassword, setCurrentPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
     const [newPassword2, setNewPassword2] = useState("")
-
+    const [showSidebar, setShowSidebar] = useState(false);
 
     // FETCH USER'S DATA TO DISPLAY
     useEffect(() => {
+        if (!user) {
+            navigate("/login")
+            return;
+        }
+
         axios.get(`http://localhost:5000/users/${user.id}`)
             .then((res) => {
                 console.log(res);
@@ -37,7 +43,7 @@ const Settings = () => {
                 setFullName(res.data.fullname);
                 setPhoneNumber(res.data.PhoneNumber)
             })
-    }, [])
+    }, [user])
 
     // UPDATE THE PROFILE IN THE BACKEND
     const handleSave = async () => {
@@ -47,8 +53,9 @@ const Settings = () => {
             return toast.error("All fields must be filled");
         }
 
+        // Update the new changes into the database and alert
         try {
-           await axios.patch(`http://localhost:5000/users/${user.id}`, {
+            await axios.patch(`http://localhost:5000/users/${user.id}`, {
                 username: userUsername,
                 fullname: fullName,
                 PhoneNumber: phoneNumber
@@ -59,22 +66,33 @@ const Settings = () => {
         }
     }
 
-    const updatePassword = async () => {     
+
+    const updatePassword = async () => {
+        // check if current password matches the password in the db  
         if (currentPassword !== password) {
             toast.error("Current password is incorrect")
             return;
         }
 
+        // check if new password and confirm password is correct
         if (newPassword !== newPassword2) {
             toast.error("New password do not match")
+            return;
         }
 
         try {
+            // Change the old password to the new password in the user's database
             await axios.patch(`http://localhost:5000/users/${user.id}`, {
                 password: newPassword
             });
+
+            // update new password in the loggedinuser db
+            await axios.patch(`http://localhost:5000/loggedInUser/${user.id}`, {
+                password: newPassword
+            })
             toast.success("Password changed");
 
+            // Empty the inputs
             setCurrentPassword("")
             setNewPassword("")
             setNewPassword2("")
@@ -82,17 +100,35 @@ const Settings = () => {
             console.log("Error changing password", error);
             toast.error("Error changing password")
         }
-
     }
 
     const handleDelete = async () => {
         try {
-            localStorage.removeItem(user)
+
+            // Confirm deletion with a prompt
+            const isConfirmed = window.confirm("Are you sure you want to delete your account?")
+            if (!isConfirmed) {
+                return;
+            }
+            // Fetch all groups and check with id if the user is in any thrift
+            const allGroup = await axios.get(`http://localhost:5000/availableGroups`)
+            const allGroupsData = allGroup.data
+
+            const isInGroup = allGroupsData.some(group => group.members.some(m => m.id === user.id))
+
+            if (isInGroup) {
+                toast.error("You cannot delete your account while still in a thrift.");
+                return;
+            }
+
+            // Remove item in the localStorage
+            localStorage.removeItem("loggedInUser")
+            // Delete the user in the db and alert successful
             await axios.delete(`http://localhost:5000/users/${user.id}`)
             toast.success("Account deleted successfully")
             setTimeout(() => {
                 navigate("/signup")
-            }, 4000);
+            }, 3000);
         } catch (error) {
             console.log("Error deleting account", error);
             toast.error("Error deleting user")
@@ -102,19 +138,21 @@ const Settings = () => {
 
     // LOGOUT FUNCTIONALITY
     const handleLogOut = async () => {
+        // Confirm logout with a prompt
         const isConfirmed = window.confirm("Confirm Logout?")
         if (!isConfirmed) {
             return;
         }
 
         try {
+            // Empty the localStorage then delete from the loggedinuser array
             localStorage.removeItem("loggedInUser");
             if (user) {
                 await axios.delete(`http://localhost:5000/loggedInUser/${user.id}`)
                 toast.success("Logout Successful")
                 setTimeout(() => {
                     navigate('/login')
-                }, 4000);
+                }, 3000);
             }
         } catch (error) {
             console.log('Unable to logout', error);
@@ -122,9 +160,18 @@ const Settings = () => {
         }
     }
 
-    
+
     return (
-        <div className='bg-[#EFF2F9] flex h-screen'>
+        <div className='bg-[#EFF2F9] md:flex h-screen'>
+
+            <div className="md:hidden flex justify-between items-center px-4 py-4 bg-white">             
+                <button onClick={() => setShowSidebar(!showSidebar)} className="text-3xl text-[#333]">
+                    <RxHamburgerMenu />
+                </button>
+                <img src={Logo} alt="Logo" className="w-[90px] h-[28px]" />
+            </div>
+
+
             <nav className="hidden md:flex md:w-3/12 overflow-y-auto bg-[#FFFFFF80] flex-col justify-between rounded-tr-[100px] rounded-br-[100px] py-10 px-[52px] text-white">
                 <div>
                     <div className="mb-10">
@@ -167,40 +214,40 @@ const Settings = () => {
             <div className=' w-4/6 mx-auto my-5 space-y-2'>
                 <div className='bg-white space-y-5 p-5 rounded-lg'>
                     <h2 className='text-2xl'>Profile Settings</h2>
-                    <div className='flex justify-between'>
-                        <div className='space-x-3'>
+                    <div className='md:flex justify-between '>
+                        <div className='md:space-x-3'>
                             <label>Full Name:</label>
                             <input
                                 type="text"
                                 value={fullName}
-                                onChange={(e)=> setFullName(e.target.value)}
+                                onChange={(e) => setFullName(e.target.value)}
                                 className='border rounded-md focus-within:outline-none py-1 px-3' />
                         </div>
-                        <div className='space-x-3'>
+                        <div className='md:space-x-3'>
                             <label>Username:</label>
                             <input
                                 type="text"
                                 value={userUsername}
-                                onChange={(e)=> setUserUsername(e.target.value)}
+                                onChange={(e) => setUserUsername(e.target.value)}
                                 className='border rounded-md focus-within:outline-none py-1 px-3' />
                         </div>
                     </div>
-                    <div className='flex justify-between'>
-                        <div className='space-x-3'>
+                    <div className='md:flex justify-between'>
+                        <div className='md:space-x-3'>
                             <label>Phone Number:</label>
                             <input
                                 type="number"
                                 value={phoneNumber}
-                                onChange={(e)=> setPhoneNumber(e.target.value)}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
                                 className='border rounded-md focus-within:outline-none py-1 px-3' />
                         </div>
-                        <div className='space-x-3'>
+                        <div className='md:space-x-3'>
                             <label>Email:</label>
                             <input
                                 type="text"
                                 value={userEmail}
                                 readOnly
-                                className='border rounded-md focus-within:outline-none py-1 px-3 cursor-not-allowed'/>
+                                className='border rounded-md focus-within:outline-none py-1 px-3 cursor-not-allowed' />
                         </div>
                     </div>
                     <div className='flex justify-center'>
@@ -210,29 +257,29 @@ const Settings = () => {
 
                 <div className='bg-white space-y-5 p-5 rounded-lg'>
                     <h2 className='text-2xl'>Change Password</h2>
-                    <div className='space-x-3'>
+                    <div className='md:space-x-3'>
                         <label>Current Password:</label>
                         <input
                             type="password"
                             value={currentPassword}
-                            onChange={(e)=>setCurrentPassword(e.target.value)}
+                            onChange={(e) => setCurrentPassword(e.target.value)}
                             className='border rounded-md focus-within:outline-none py-1 px-3' />
                     </div>
-                    <div className='flex justify-between'>
-                        <div className='space-x-3'>
+                    <div className='md:flex justify-between'>
+                        <div className='md:space-x-3'>
                             <label>New Password:</label>
                             <input
                                 type="password"
                                 value={newPassword}
-                                onChange={(e)=>setNewPassword(e.target.value)}
+                                onChange={(e) => setNewPassword(e.target.value)}
                                 className='border rounded-md focus-within:outline-none py-1 px-3' />
                         </div>
-                        <div className='space-x-3'>
+                        <div className='md:space-x-3'>
                             <label>Confirm New Password:</label>
                             <input
                                 type="password"
                                 value={newPassword2}
-                                onChange={(e)=>setNewPassword2(e.target.value)}
+                                onChange={(e) => setNewPassword2(e.target.value)}
                                 className='border rounded-md focus-within:outline-none py-1 px-3' />
                         </div>
                     </div>
@@ -245,7 +292,7 @@ const Settings = () => {
             </div>
             <ToastContainer
                 position="top-center"
-                autoClose={3000}
+                autoClose={2000}
                 closeOnClick
                 pauseOnHover
             />
