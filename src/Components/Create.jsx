@@ -17,6 +17,8 @@ const Create = () => {
     const [user, setUser] = useState("")
 
     const calcInterest = groupAmount ? (parseFloat(groupAmount) * 0.1).toFixed(2) : "";
+    // console.log(calcInterest);
+    
 
     useEffect(() => {
       axios.get("http://localhost:5000/loggedInUser").then((res)=>{
@@ -28,8 +30,9 @@ const Create = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
 
-        if (!groupName || !groupAmount || !groupDuration || !groupInterest || !groupMembers || !groupPlan) {
+        if (!groupName || !groupAmount || !groupDuration || !calcInterest || !groupMembers || !groupPlan) {
             toast.error("All fields are required");
             return;
         }
@@ -77,9 +80,9 @@ const Create = () => {
         }
     }, [groupDuration])
 
-    const handleDurationChange = (e) => {
-        setGroupDuration(e.target.value);
-    };
+    // const handleDurationChange = (e) => {
+    //     setGroupDuration(e.target.value);
+    // };
 
 
     return (
@@ -87,27 +90,28 @@ const Create = () => {
             <form onSubmit={handleSubmit} className='md:w-[70%] md:m-auto '>
                 <div className='space-y-8'>
                     <p className=' text-[30px] md:text-[48px] font-[600] text-[#000000] text-center'>Create a Thrift</p>
-                    <div className='space-y-5'>
-                        <div className='md:flex justify-between'>
-                            <div className='space-y-[22px]'>
+                    <div className='space-y-5 '>
+                        <div className='lg:grid lg:grid-cols-2 gap-[60px]'>
+                            <div className='space-y-4'>
                                 <p className='text-[#00000080] text-[24px] font-[400]'>Enter group name</p>
                                 <input
                                     name='groupName'
                                     type="text"
+                                    value={groupName}
                                     onChange={(e) => setGroupName(e.target.value)}
                                     className='bg-[#6672EA33] w-[400px] px-[32px] py-[10px] focus:outline-none rounded-[30px] text-[#00000080] text-[24px]'
                                 />
                             </div>
-                            <div className='md:flex flex-col gap-[22px]'>
+                            <div className='space-y-4'>
                                 <label className='text-[#00000080] text-[24px] font-[400]'>Choose thrift duration</label>
                                 <select
                                     name='groupDuration'
                                     value={groupDuration}
                                     onChange={(e) => {
-                                        handleDurationChange(e)
+                                        // handleDurationChange(e)
                                         setGroupDuration(e.target.value)
                                     }}
-                                    className="bg-[#6672EA33] md:w-[400px] px-[32px] py-[10px] focus:outline-none rounded-[30px] text-[#00000080] text-[24px]"
+                                    className="bg-[#6672EA33] w-[400px] px-[32px] py-[10px] focus:outline-none rounded-[30px] text-[#00000080] text-[24px]"
                                 >
                                     <option value="">-- Please set thrift duration --</option>
                                     <option value="7 days">Week</option>
@@ -116,8 +120,8 @@ const Create = () => {
                                 </select>
                             </div>
                         </div>
-                        <div className='md:flex justify-between'>
-                            <div className='space-y-[22px]'>
+                        <div className='lg:grid lg:grid-cols-2 gap-[60px]'>
+                            <div className='space-y-4'>
                                 <p className='text-[#00000080] text-[24px] font-[400]'>Amount to be paid</p>
                                 <input
                                     name='groupAmount'
@@ -128,11 +132,12 @@ const Create = () => {
                                     onChange={(e) => setGroupAmount(e.target.value)}
                                 />
                             </div>
-                            <div className='flex flex-col gap-[22px]'>
+                            <div className='flex flex-col gap-4'>
                                 <label className='text-[#00000080] text-[24px] font-[400]'>Plan</label>
                                 <select
                                     name='groupPlan'
                                     value={groupPlan}
+                                    disabled
                                     onChange={(e) => setGroupPlan(e.target.value)}
                                     className="bg-[#6672EA33] w-[400px] px-[32px] py-[10px] focus:outline-none rounded-[30px] text-[#00000080] text-[24px]"
                                 >
@@ -143,19 +148,18 @@ const Create = () => {
                                 </select>
                             </div>
                         </div>
-                        <div className='md:flex justify-between'>
-                            <div className='space-y-[22px]'>
+                        <div className='lg:grid lg:grid-cols-2 gap-[60px]'>
+                            <div className='space-y-4'>
                                 <p className='text-[#00000080] text-[24px] font-[400]'>Interest if defaulted</p>
                                 <input
                                     name='groupInterest'
-                                    type="text"
-                                    onChange={(e) => setGroupInterest(e.target.value)}
+                                    type="number"
+                                    readOnly
                                     className='bg-[#6672EA33] w-[400px] px-[32px] py-[10px] focus:outline-none rounded-[30px] text-[#00000080] text-[24px]'
                                     value={calcInterest}
-                                    min={0}
                                 />
                             </div>
-                            <div className='space-y-[22px]'>
+                            <div className='space-y-4'>
                                 <p className='text-[#00000080] text-[24px] font-[400]'>Members</p>
                                 <input
                                     name='groupMembers'
@@ -172,7 +176,7 @@ const Create = () => {
                     {/* SUBMIT LINK */}
                     <div className='flex justify-center'>
                         <button
-                            className='bg-[#6672EA] hover:bg-[#6269ac] text-white px-[20px] py-[10px] rounded-xl md:px-[10px] md:py-[22px] md:w-[500px] md:rounded-[30px] text-[32px] font-[500]'
+                            className='bg-[#6672EA] hover:bg-[#6269ac] text-white px-[20px] py-[10px] rounded-xl md:px-[18px] md:py-[10px] md:w-[400px] md:rounded-[30px] text-[32px] font-[500]'
                             type='submit'
                         >
                             Create

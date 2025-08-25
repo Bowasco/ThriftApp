@@ -199,6 +199,21 @@
       "groupLink": "http://localhost:3000/join_thrift/fbd8",
       "thriftCreator": "bc51",
       "completed": false
+    },
+    {
+      "id": "5c32",
+      "groupName": "hsdhsh",
+      "groupDuration": "7 days",
+      "groupAmount": "4000",
+      "groupPlan": "Daily",
+      "groupInterest": "400.00",
+      "groupMembers": "5",
+      "members": [],
+      "thriftCreator": "62dd",
+      "completed": false,
+      "receiving_id": 1,
+      "groupWallet": 0,
+      "groupLink": "http://localhost:3000/join_thrift/5c32"
     }
   ]
 }

@@ -118,7 +118,7 @@ const Group = () => {
                         <img src={Logo} alt="Logo" className="w-[90px] h-[28px]" />
                     </div>
 
-                    <div className="flex flex-col gap-8 mt-24">
+                    <div className="flex flex-col gap-8 mt-18">
                         <Link className="flex items-center gap-3 hover:text-gray-300" to='/dashboard'>
                             <span><img src={dash} alt="" className='w-[24px] h-[24px]' /></span>
                             <span className='text-[24px] text-[#54538A] font-[400]'>Dashboard</span>
